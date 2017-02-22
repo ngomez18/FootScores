@@ -1,0 +1,34 @@
+{
+  "name": "footscores",
+  "version": "1.0.0",
+  "description": "Simple website to guess the score of upcoming football games Edit",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "debug": "*",
+    "express": "*",
+    "morgan": "*",
+    "pug": "2.0.0-beta11",
+    "serve-favicon": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngomez22/FootScores.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "js"
+  ],
+  "author": "Nicolas Gomez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngomez22/FootScores/issues"
+  },
+  "homepage": "https://github.com/ngomez22/FootScores#readme"
+}
