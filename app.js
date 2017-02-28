@@ -43,7 +43,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//serve booststrap files
+//serve static files
 app.use('/bootstrap', express.static(path.join(__dirname, '/public/bootstrap/')));
+app.use('/static', express.static(path.join(__dirname, '/public')));
 
 module.exports = app;
