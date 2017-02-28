@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var ligas = require('../competitions.json'); //Solo para pruebas y evitar usar el api constantemente.
-var partidos428 = require('../partidosLiga.json'); //Solo para pruebas y evitar usar el api constantemente.
+var ligas = require('../public/data/competitions.json'); //Solo para pruebas y evitar usar el api constantemente.
+var partidos428 = require('../public/data/partidosLiga.json'); //Solo para pruebas y evitar usar el api constantemente.
 
 
 /* GET users listing. */
@@ -13,11 +13,13 @@ router.get('/', function(req, res, next) {
 router.get('/ligas', function(req, res, next) {
   res.json(ligas);
 });
+
 router.get('/ligas/:id', function(req, res, next) {
   var id = req.params.id;
   console.log(id);
   res.json(partidos428);
 });
+
 /*
 El codigo siguiente se comento para no consumir los request diarios.
 Con efecto de realizar pruebas.

@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  h1= title
-  p Upcoming #{title} matches.
+  h1 Upcoming league matches
   each match in matches
     p #{match.homeTeamName} - #{match.awayTeamName}
