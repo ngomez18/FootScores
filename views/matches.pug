@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= title
+  p Upcoming #{title} matches.
+  each match in matches
+    p #{match.homeTeamName} - #{match.awayTeamName}
