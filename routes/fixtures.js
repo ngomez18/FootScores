@@ -16,7 +16,7 @@ var options = {
   }
 };
 
-function getMatches(id, callback) {
+function getMatchesByCompetition(id, callback) {
   options.url = hostname +'competitions/' + id + '/fixtures?timeFrame=n1';
   console.log(options.url)
   request(options, function (error, response, body) {
@@ -29,7 +29,7 @@ function getMatches(id, callback) {
   });
 };
 
-function getMatchesDayBeforeAllLeagues(callback) {
+function getMatchesDayBefore(callback) {
   options.url = hostname +'/fixtures?timeFrame=p1';
   console.log(options.url)
   request(options, function (error, response, body) {
@@ -42,7 +42,7 @@ function getMatchesDayBeforeAllLeagues(callback) {
   });
 };
 
-function getMatchesAllLeagues(callback) {
+function getMatches(callback) {
   options.url = hostname +'/fixtures?timeFrame=n1';
   console.log(options.url)
   request(options, function (error, response, body) {
@@ -55,9 +55,18 @@ function getMatchesAllLeagues(callback) {
   });
 };
 
+function serveMatches(collection, ids) {
+  collection.find({}, function(err, document) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(document);
+    }
+  });
+};
 
-exports.getMatchesAllLeagues = getMatchesAllLeagues;
-exports.getMatchesDayBeforeAllLeagues = getMatchesDayBeforeAllLeagues;
-exports.getMatches = getMatches;
 
-module.exports = exports;
+module.exports.getMatchesByCompetition = getMatchesByCompetition;
+module.exports.getMatchesDayBefore = getMatchesDayBefore;
+module.exports.getMatches = getMatches;
+module.exports.serveMatches = serveMatches;
