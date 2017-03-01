@@ -52,13 +52,11 @@ app.use(function(err, req, res, next) {
 
 
 
-setInterval(function(){cargarPartidosDiaSiguiente();}, 1000*3600*24);
-setInterval(function(){actualizarPartidos();}, 1000*3600*24);
+setInterval(cargarPartidosDiaSiguiente(), 1000*3600*24);
+setInterval(actualizarPartidos(), 1000*3600*24);
 
-var actualizarPartidos = function()
-{
-  fixtures.getMatchesDayBeforeAllLeagues(function(data)
-  {
+function actualizarPartidos() {
+  fixtures.getMatchesDayBeforeAllLeagues(function(data) {
     //console.log(data);
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
@@ -69,9 +67,8 @@ var actualizarPartidos = function()
     });
   });
 }
-var cargarPartidosDiaSiguiente = function()
-{
-  fixtures.getMatchesAllLeagues(function(data){
+function cargarPartidosDiaSiguiente() {
+  fixtures.getMatchesAllLeagues(function(data) {
     //console.log(data);
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
@@ -102,8 +99,7 @@ var updateDocument = function(db,for_update, callback) {
   // Update document
   console.log('OK..');
   //console.log(collection);
-  for_update.forEach(function (u)
-  {
+  for_update.forEach(function (u) {
     collection.updateMany({},{'$set': u}, function(err, result) {
       assert.equal(err, null);
       console.log("Updated the document");
@@ -111,7 +107,6 @@ var updateDocument = function(db,for_update, callback) {
     });
   });
 }
-
 
 //serve static files
 app.use('/bootstrap', express.static(path.join(__dirname, '/public/bootstrap/')));
