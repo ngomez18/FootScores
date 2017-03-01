@@ -4,15 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+var MongoConfig = require('./database/mongo-config');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var fixtures = require('./routes/fixtures');
 
 var app = express();
-
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
 
 //USER: admin PASS: admin
 var url = 'mongodb://admin:admin@ds113678.mlab.com:13678/footscores';
@@ -52,35 +52,35 @@ app.use(function(err, req, res, next) {
 
 
 
-setInterval(cargarPartidosDiaSiguiente(), 1000*3600*24);
-setInterval(actualizarPartidos(), 1000*3600*24);
+setInterval(loadUpcomingMatches(), 1000*3600*24);
+setInterval(updateMatches(), 1000*3600*24);
 
-function actualizarPartidos() {
-  fixtures.getMatchesDayBeforeAllLeagues(function(data) {
-    //console.log(data);
+function updateMatches() {
+  fixtures.getMatchesDayBefore(function(data) {
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected successfully to server");
-      updateDocument(db,data,function() {
-        db.close();
-      });
-    });
-  });
-}
-function cargarPartidosDiaSiguiente() {
-  fixtures.getMatchesAllLeagues(function(data) {
-    //console.log(data);
-    MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
-      console.log("Connected successfully to server");
-      insertDocuments(db,data,function() {
+      updateDocument(db, data, function() {
         db.close();
       });
     });
   });
 }
 
-var insertDocuments = function(db,for_insert, callback) {
+function loadUpcomingMatches() {
+  fixtures.getMatches(function(data) {
+    //console.log(data);
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected successfully to server");
+      insertDocuments(db, data, function() {
+        db.close();
+      });
+    });
+  });
+}
+
+var insertDocuments = function(db, for_insert, callback) {
   // Get the documents collection
   var collection = db.collection('partidos');
   // Insert some documents
@@ -93,7 +93,7 @@ var insertDocuments = function(db,for_insert, callback) {
 }
 
 
-var updateDocument = function(db,for_update, callback) {
+var updateDocument = function(db, for_update, callback) {
   // Get the documents collection
   var collection = db.collection('partidos');
   // Update document
