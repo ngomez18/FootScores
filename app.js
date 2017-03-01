@@ -10,7 +10,7 @@ var MongoConfig = require('./database/mongo-config');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var fixtures = require('./routes/fixtures');
+var fixtures = require('./api/football-api');
 
 var app = express();
 
@@ -49,7 +49,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 
 setInterval(loadUpcomingMatches(), 1000*3600*24);
