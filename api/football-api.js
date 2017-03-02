@@ -57,7 +57,28 @@ module.exports.serveMatches = function(db, callback) {
         }
         console.log(thing);
         callback(db);
-      })
+      });
+    }
+  });
+};
+
+module.exports.serveMatchesCompetition = function(db, id, callback) {
+  var collection = db.collection('partidos');
+  collection.find({
+    'competitionId': id
+  }, function(err, document) {
+    if(err) {
+      console.log("ERROR:\n"+err);
+    } else {
+      console.log("SUCCESS:\n");
+      document.each(function(err, thing) {
+        if(err) {
+          console.log(err);
+          return;
+        }
+        console.log(thing);
+        callback(db);
+      });
     }
   });
 };
