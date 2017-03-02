@@ -1,3 +1,6 @@
+/************************************************
+  REQUIRE NPM PACKAGES
+************************************************/
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,12 +9,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var mongoose = require('mongoose');
 
+
+/************************************************
+  REQUIRE LOCAL MODULES
+************************************************/
 var database = require('./database/mongo');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var fixtures = require('./api/football-api');
 
+
+/************************************************
+  SETUP
+************************************************/
 var app = express();
 
 //USER: admin PASS: admin
@@ -21,8 +33,8 @@ var url = 'mongodb://admin:admin@ds113678.mlab.com:13678/footscores';
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,6 +63,9 @@ app.use(function(err, req, res, next) {
 });
 
 
+/************************************************
+  FUNCTIONS
+************************************************/
 setInterval(loadUpcomingMatches(), 1000*3600*24);
 setInterval(updateMatches(), 1000*3600*24);
 
@@ -115,7 +130,9 @@ var updateDocument = function(db, for_update, callback) {
   });
 }
 
-//serve static files
+/************************************************
+  SERVE STATIC FILES
+************************************************/
 app.use('/bootstrap', express.static(path.join(__dirname, '/public/bootstrap/')));
 app.use('/static', express.static(path.join(__dirname, '/public')));
 
