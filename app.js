@@ -16,6 +16,7 @@ var mongoose = require('mongoose');
   REQUIRE LOCAL MODULES
 ************************************************/
 var database = require('./database/mongo');
+var dbConfig = require('./database/mongo-config');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var fixtures = require('./api/football-api');
@@ -25,6 +26,8 @@ var fixtures = require('./api/football-api');
   SETUP
 ************************************************/
 var app = express();
+
+mongoose.connect(dbConfig.url);
 
 //USER: admin PASS: admin
 var url = 'mongodb://admin:admin@ds113678.mlab.com:13678/footscores';
@@ -113,7 +116,6 @@ var insertDocuments = function(db, for_insert, callback) {
     callback(result);
   });
 }
-
 
 var updateDocument = function(db, for_update, callback) {
   // Get the documents collection
