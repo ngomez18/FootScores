@@ -18,9 +18,7 @@ router.get('/fixtures/:id', function(req, res, next) {
 });
 
 router.get('/matches', function(req, res, next) {
-  database.getConnection(function(db) {
-    fixtures.serveMatches(db.collection('partidos'));
-  });
+  database.getConnection(fixtures.serveMatches);
   res.render('matches', {matches: {}});
 });
 

@@ -43,12 +43,21 @@ module.exports.getMatches = function(callback) {
   });
 };
 
-module.exports.serveMatches = function serveMatches(collection, ids) {
+module.exports.serveMatches = function(db, callback) {
+  var collection = db.collection('partidos');
   collection.find({}, function(err, document) {
     if(err) {
       console.log("ERROR:\n"+err);
     } else {
-      console.log("SUCCESS:\n"+document);
+      console.log("SUCCESS:\n");
+      document.each(function(err, thing) {
+        if(err) {
+          console.log(err);
+          return;
+        }
+        console.log(thing);
+        callback(db);
+      })
     }
   });
 };

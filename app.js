@@ -4,10 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-var MongoConfig = require('./database/mongo-config');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
+var database = require('./database/mongo');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var fixtures = require('./api/football-api');
@@ -53,6 +53,14 @@ app.use(function(err, req, res, next) {
 
 setInterval(loadUpcomingMatches(), 1000*3600*24);
 setInterval(updateMatches(), 1000*3600*24);
+
+function updateMatchesNew() {
+  fixtures.getMatchesDayBefore(function(data) {
+    database.getConnection(function(db) {
+      database.update(db, 'partidos', database.close);
+    });
+  });
+};
 
 function updateMatches() {
   fixtures.getMatchesDayBefore(function(data) {

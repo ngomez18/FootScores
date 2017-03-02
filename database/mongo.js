@@ -14,21 +14,27 @@ module.exports.getConnection = function(callback) {
   });
 };
 
-module.exports.insert = function(db, data, callback) {
+module.exports.close = function(db) {
+  console.log("Closing connection");
+  db.close();
+
+}
+
+module.exports.insert = function(db, collection, data, callback) {
   // Get the documents collection
-  var collection = db.collection('partidos');
+  var collection = db.collection(collection);
   // Insert some documents
   console.log('OK..');
   collection.insertMany(for_insert, function(err, result) {
     assert.equal(err, null);
     console.log("Inserted into the collection");
-    callback(result);
+    callback(result, module.exports.close);
   });
 };
 
-module.exports.update = function(db, data, callback) {
+module.exports.update = function(db, collection, data, callback) {
   // Get the documents collection
-  var collection = db.collection('partidos');
+  var collection = db.collection(collection);
   // Update document
   console.log('OK..');
   //console.log(collection);
@@ -36,7 +42,7 @@ module.exports.update = function(db, data, callback) {
     collection.updateMany({},{'$set': u}, function(err, result) {
       assert.equal(err, null);
       console.log("Updated the document");
-      callback(result);
+      callback(result, module.exports.close);
     });
   });
 };
