@@ -1,7 +1,7 @@
 {
-  "name": "footscores",
+  "name": "footscores-backend",
   "version": "1.0.0",
-  "description": "Simple website to guess the score of upcoming football games Edit",
+  "description": "Simple website to guess the score of upcoming football games",
   "scripts": {
     "start": "node ./bin/www",
     "test": "test"
