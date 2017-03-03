@@ -14,7 +14,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navegacion></Navegacion>
+        <div className='row'>
+          <Navegacion></Navegacion>
+        </div>
+        <div className='row'>
+          <div className='col-md-1'></div>
+          <div className='col-md-10'>
+            <h1>Hola</h1>
+          </div>
+          <div className='col-md-1'></div>
+        </div>
       </div>
     );
   }

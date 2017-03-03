@@ -1,50 +1,43 @@
 import React, {Component} from 'react';
-import {Nav} from 'react-bootstrap/lib/'
+import {Nav, Navbar, Toggle, Collapse, Header, NavItem} from 'react-bootstrap/lib/'
 import '../style/App.css';
 
 class Navegacion extends Component {
-
-
-
 
     /*  constructor(props)
   {
     super(props)
   }*/
 
-  render() {
-      return (
-          <div>
-              <Nav className="navbar navbar-inverse navbar-fixed-top">
-                  <div className="container-fluid">
-                      <div className="navbar-header">
-                          <a className="navbar-brand" href="#">FootScores</a>
-                      </div>
-                      <ul className="nav navbar-nav">
-                          <li className="active">
-                              <a href="#">Home</a>
-                          </li>
-                          <li>
-                              <a href="#">Leaderboard</a>
-                          </li>
-                      </ul>
-                      <ul className="nav navbar-nav navbar-right">
-                          <li>
-                              <a href="#">
-                                  <span className="glyphicon glyphicon-user"></span>
-                                  Sign Up</a>
-                          </li>
-                          <li>
-                              <a href="#">
-                                  <span className="glyphicon glyphicon-log-in"></span>
-                                  Login
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
-              </Nav>
-          </div>
-      );
-  }
+    render() {
+        return (
+            <div>
+                <Navbar className="navbar-inverse">
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <a href="#">FootScores</a>
+                        </Navbar.Brand>
+                        <Navbar.Toggle/>
+                    </Navbar.Header>
+                    <Navbar.Collapse>
+                        <Nav>
+                          <NavItem eventKey={1} href="#">Home</NavItem>
+                          <NavItem eventKey={2} href="#">Leaderboard</NavItem>
+                        </Nav>
+                        <Nav pullRight>
+                          <NavItem eventKey={2} href="#">
+                            <span className='glyphicon glyphicon-user'></span>
+                            Sign Up
+                          </NavItem>
+                          <NavItem eventKey={1} href="#">
+                            <span className="glyphicon glyphicon-log-in"></span>
+                            Login
+                          </NavItem>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
+        );
+    }
 }
 export default Navegacion;
