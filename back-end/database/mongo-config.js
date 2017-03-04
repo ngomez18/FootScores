@@ -1,7 +1,7 @@
 //USER: admin PASS: admin
-module.exports.url = 'mongodb://admin:admin@ds113678.mlab.com:13678/footscores';
+module.exports.url = 'mongodb://admin:admin@ds117830.mlab.com:17830/footscores';
 module.exports.user = 'admin';
 module.exports.password = 'admin';
 module.exports.setConfig = function() {
-  process.env.MONGOOSE_CONNECT = 'mongodb://admin:admin@ds113678.mlab.com:13678/footscores';
+  process.env.MONGOOSE_CONNECT = module.exports.url;
 };

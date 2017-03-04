@@ -1,12 +1,23 @@
-var express = require('express');
+/************************************************
+  REQUIRE NPM PACKAGES
+************************************************/
 var request = require('request');
 var http = require('http');
-var router = express.Router();
+
+
+/************************************************
+  REQUIRE LOCAL MODULES
+************************************************/
 var config = require('./football-api-config');
 
+
+/************************************************
+  API REQUESTS (football-data.org)
+************************************************/
+// Get all matches happening in the upcoming week from a certain competition
 module.exports.getMatchesByCompetition = function(id, callback) {
   var options = config.options;
-  options.url = config.hostname + 'competitions/' + id + '/fixtures?timeFrame=n1';
+  options.url = config.hostname + 'competitions/' + id + '/fixtures?timeFrame=n7';
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);
@@ -17,9 +28,10 @@ module.exports.getMatchesByCompetition = function(id, callback) {
   });
 };
 
-module.exports.getMatchesDayBefore = function(callback) {
+// Get all the matches that took place the previous week
+module.exports.getMatchesWeekBefore = function(callback) {
   var options = config.options;
-  options.url = config.hostname + '/fixtures?timeFrame=n1';
+  options.url = config.hostname + '/fixtures?timeFrame=n7';
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);
@@ -30,9 +42,10 @@ module.exports.getMatchesDayBefore = function(callback) {
   });
 };
 
-module.exports.getMatches = function(callback) {
+// Get all the matches happening in the upcoming week, all competitions
+module.exports.getMatchesNextWeek = function(callback) {
   var options = config.options;
-  options.url = config.hostname + '/fixtures?timeFrame=n1';
+  options.url = config.hostname + '/fixtures?timeFrame=n7';
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);
@@ -43,6 +56,7 @@ module.exports.getMatches = function(callback) {
   });
 };
 
+/*
 module.exports.serveMatches = function(db, callback) {
   var collection = db.collection('partidos');
   collection.find({}, function(err, document) {
@@ -82,3 +96,4 @@ module.exports.serveMatchesCompetition = function(db, id, callback) {
     }
   });
 };
+*/

@@ -7,3 +7,4 @@ module.exports.options = {
     'X-Response-Control': 'minified'
   }
 };
+module.exports.competitions = [440, 438, 434, 430, 426];

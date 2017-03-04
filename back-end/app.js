@@ -29,9 +29,6 @@ var app = express();
 
 mongoose.connect(dbConfig.url);
 
-//USER: admin PASS: admin
-var url = 'mongodb://admin:admin@ds113678.mlab.com:13678/footscores';
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -69,68 +66,7 @@ app.use(function(err, req, res, next) {
 /************************************************
   FUNCTIONS
 ************************************************/
-setInterval(loadUpcomingMatches(), 1000*3600*24);
-setInterval(updateMatches(), 1000*3600*24);
 
-function updateMatchesNew() {
-  fixtures.getMatchesDayBefore(function(data) {
-    database.getConnection(function(db) {
-      database.update(db, 'partidos', database.close);
-    });
-  });
-};
-
-function updateMatches() {
-  fixtures.getMatchesDayBefore(function(data) {
-    MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
-      console.log("Connected successfully to server");
-      updateDocument(db, data, function() {
-        db.close();
-      });
-    });
-  });
-}
-
-function loadUpcomingMatches() {
-  fixtures.getMatches(function(data) {
-    //console.log(data);
-    MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
-      console.log("Connected successfully to server");
-      insertDocuments(db, data, function() {
-        db.close();
-      });
-    });
-  });
-}
-
-var insertDocuments = function(db, for_insert, callback) {
-  // Get the documents collection
-  var collection = db.collection('partidos');
-  // Insert some documents
-  console.log('OK..');
-  collection.insertMany(for_insert, function(err, result) {
-    assert.equal(err, null);
-    console.log("Inserted into the collection");
-    callback(result);
-  });
-}
-
-var updateDocument = function(db, for_update, callback) {
-  // Get the documents collection
-  var collection = db.collection('partidos');
-  // Update document
-  console.log('OK..');
-  //console.log(collection);
-  for_update.forEach(function (u) {
-    collection.updateMany({},{'$set': u}, function(err, result) {
-      assert.equal(err, null);
-      console.log("Updated the document");
-      callback(result);
-    });
-  });
-}
 
 /************************************************
   SERVE STATIC FILES
@@ -138,4 +74,42 @@ var updateDocument = function(db, for_update, callback) {
 app.use('/bootstrap', express.static(path.join(__dirname, '/public/bootstrap/')));
 app.use('/static', express.static(path.join(__dirname, '/public')));
 
+
+
 module.exports = app;
+
+/*
+insertDocuments(db, data, function() {
+  db.close();
+});
+});
+});
+}
+
+var insertDocuments = function(db, for_insert, callback) {
+// Get the documents collection
+var collection = db.collection('partidos');
+// Insert some documents
+console.log('OK..');
+collection.insertMany(for_insert, function(err, result) {
+assert.equal(err, null);
+console.log("Inserted into the collection");
+callback(result);
+});
+}
+
+var updateDocument = function(db, for_update, callback) {
+// Get the documents collection
+var collection = db.collection('partidos');
+// Update document
+console.log('OK..');
+//console.log(collection);
+for_update.forEach(function (u) {
+collection.updateMany({},{'$set': u}, function(err, result) {
+assert.equal(err, null);
+console.log("Updated the document");
+callback(result);
+});
+});
+}
+*/

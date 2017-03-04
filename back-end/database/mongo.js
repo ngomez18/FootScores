@@ -1,8 +1,19 @@
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
+/************************************************
+  REQUIRE NPM PACKAGES
+************************************************/
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+
+
+/************************************************
+  REQUIRE LOCAL MODULES
+************************************************/
 var Config = require('./mongo-config');
 
 
+/************************************************
+  DATABASE METHODS
+************************************************/
 module.exports.getConnection = function(callback) {
   MongoClient.connect(Config.url, function(err, db) {
     assert.equal(null, err);
