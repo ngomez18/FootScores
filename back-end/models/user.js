@@ -3,8 +3,14 @@ var Schema = mongoose.Schema;
 
 module.exports = mongoose.model('User', new Schema({
   username: String,
-  name: String,
-  email: String,
   password: String,
-  admin: Boolean
+  admin: Boolean,
+  email: String,
+  name: String,
+  score: Number,
+  guesses: [{
+    match: Number,
+    homeTeamScore: Number,
+    awayTeamScore: Number
+  }]
 }));
