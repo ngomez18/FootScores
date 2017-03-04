@@ -20,6 +20,8 @@ var database = require('./database/mongo');
 var dbConfig = require('./database/mongo-config');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var competitions = require('./routes/competitions');
+var teams = require('./routes/teams');
 var fixtures = require('./api/football-api');
 
 
@@ -42,6 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/competitions', competitions);
+app.use('/teams', teams);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
