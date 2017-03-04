@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var mongoose = require('mongoose');
+var cron = require('cron');
 
 
 /************************************************
@@ -23,11 +24,9 @@ var fixtures = require('./api/football-api');
 
 
 /************************************************
-  SETUP
+  SERVER SETUP
 ************************************************/
 var app = express();
-
-mongoose.connect(dbConfig.url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -64,6 +63,16 @@ app.use(function(err, req, res, next) {
 
 
 /************************************************
+  DATABASE SETUP
+************************************************/
+mongoose.connect(dbConfig.url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  //Databse is connected
+});
+
+/************************************************
   FUNCTIONS
 ************************************************/
 
@@ -75,41 +84,4 @@ app.use('/bootstrap', express.static(path.join(__dirname, '/public/bootstrap/'))
 app.use('/static', express.static(path.join(__dirname, '/public')));
 
 
-
 module.exports = app;
-
-/*
-insertDocuments(db, data, function() {
-  db.close();
-});
-});
-});
-}
-
-var insertDocuments = function(db, for_insert, callback) {
-// Get the documents collection
-var collection = db.collection('partidos');
-// Insert some documents
-console.log('OK..');
-collection.insertMany(for_insert, function(err, result) {
-assert.equal(err, null);
-console.log("Inserted into the collection");
-callback(result);
-});
-}
-
-var updateDocument = function(db, for_update, callback) {
-// Get the documents collection
-var collection = db.collection('partidos');
-// Update document
-console.log('OK..');
-//console.log(collection);
-for_update.forEach(function (u) {
-collection.updateMany({},{'$set': u}, function(err, result) {
-assert.equal(err, null);
-console.log("Updated the document");
-callback(result);
-});
-});
-}
-*/
