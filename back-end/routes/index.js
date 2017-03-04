@@ -26,15 +26,15 @@ router.get('/', function(req, res, next) {
 router.get('/auth', auth.authenticate);
 
 // GET any leagues matches
-router.get('/fixtures/:id', function(req, res, next) {
-  var matches = fixtures.getMatchesByCompetition(req.params.id, function(data) {
+router.get('/fixtures/:league', function(req, res, next) {
+  var matches = fixtures.getMatchesByCompetition(req.params.league, function(data) {
     res.render('matches', {matches: data});
   });
 });
 
 //GET fixtures from every relevant competition
 router.get('/fixtures', function(req, res, next) {
-  var matches = fixtures.getMatchesByCompetition(req.params.id, function(data) {
+  var matches = fixtures.getMatchesNextWeek(function(data) {
     res.render('matches', {matches: data});
   });
 });
