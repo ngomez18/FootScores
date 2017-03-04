@@ -14,7 +14,7 @@ var config = require('./football-api-config');
 /************************************************
   API METADATA
 ************************************************/
-var competitions = ['CL', 'EL', 'EC', 'PPL', 'DED', 'FL1', 'CDR', 'PD', 'SA', 'FAC', 'DFB', 'BL1'];
+var competitions = ['CL', 'EL', 'EC', 'PPL', 'DED', 'FL1', 'CDR', 'PD', 'SA', 'FAC', 'PL', 'DFB', 'BL1'];
 var competitionsNames = ['Champions League', 'UEFA Cup', 'European Cup of Nations', 'Primeira Liga', 'Eredivise', 'Ligue 1', 'Copa del Rey', 'Primera División (Liga BBVA)', 'Serie A', 'FA Cup', 'English Premiere League', 'DFB Pokal', 'Bundesliga 1'];
 var getCompetitionName = function(id) {
   return competitionsNames[competitions.indexOf(id)];
@@ -28,7 +28,7 @@ module.exports.getCompetitionName = getCompetitionName;
 /************************************************
   API REQUESTS (football-data.org)
 ************************************************/
-// Get all matches happening in the upcoming week from a certain competition
+// Get all matches happening in the upcoming week from a certain competition(s)
 module.exports.getMatchesByCompetition = function(id, callback) {
   var options = config.options;
   options.url = config.hostname + '/fixtures?timeFrame=n7&league=' + id;
