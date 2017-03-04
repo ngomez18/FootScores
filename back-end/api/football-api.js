@@ -14,8 +14,8 @@ var config = require('./football-api-config');
 /************************************************
   API METADATA
 ************************************************/
-var competitions = ['CL', 'EL', 'EC', 'PPL', 'DED', 'FL1', 'CDR', 'PD', 'SA', 'FAC', 'PL', 'DFB', 'BL1'];
-var competitionsNames = ['Champions League', 'UEFA Cup', 'European Cup of Nations', 'Primeira Liga', 'Eredivise', 'Ligue 1', 'Copa del Rey', 'Primera División (Liga BBVA)', 'Serie A', 'FA Cup', 'English Premiere League', 'DFB Pokal', 'Bundesliga 1'];
+var competitions = ['WC', 'EC', 'CL', 'EL', 'PPL', 'DED', 'FL1', 'CDR', 'PD', 'SA', 'FAC', 'PL', 'DFB', 'BL1'];
+var competitionsNames = ['World Cup', 'European Cup of Nations', 'Champions League', 'UEFA Cup', 'Primeira Liga', 'Eredivise', 'Ligue 1', 'Copa del Rey', 'Primera División (Liga BBVA)', 'Serie A', 'FA Cup', 'English Premiere League', 'DFB Pokal', 'Bundesliga 1'];
 var getCompetitionName = function(id) {
   return competitionsNames[competitions.indexOf(id)];
 }
@@ -35,9 +35,8 @@ module.exports.getMatchesByCompetition = function(id, callback) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);
-    }
-    else {
-      console.log(error);
+    } else {
+      throw error;
     }
   });
 };
@@ -49,9 +48,8 @@ module.exports.getMatchesWeekBefore = function(callback) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);
-    }
-    else {
-      console.log(error);
+    } else {
+      throw error;
     }
   });
 };
@@ -63,9 +61,34 @@ module.exports.getMatchesNextWeek = function(callback) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);
+    } else {
+      throw error;
     }
-    else {
-      console.log(error);
+  });
+};
+
+// Get a certain competition
+module.exports.getCompetition = function(id, callback) {
+  var options = config.options;
+  options.url = config.hostname + '/competitions/' + id;
+  request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      callback(JSON.parse(body).fixtures);
+    } else {
+      throw error;
+    }
+  });
+};
+
+// Get a certain team
+module.exports.getTeam = function(id, callback) {
+  var options = config.options;
+  options.url = config.hostname + '/teams/' + id;
+  request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      callback(JSON.parse(body).fixtures);
+    } else {
+      throw error;
     }
   });
 };
