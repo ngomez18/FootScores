@@ -8,3 +8,9 @@ module.exports.options = {
   }
 };
 module.exports.competitions = [440, 438, 434, 430, 426];
+// Champions League: 440
+// Serie A: 438
+// BBVA: 436
+// Ligue 1: 434
+// Bundesliga 430
+// Premier: 426
