@@ -66,8 +66,6 @@ module.exports.addGuess = function(username, guess, options, callback) {
 
 // Remove a guess from the user
 module.exports.removeGuess = function(username, guess, options, callback) {
-  console.log("GUESS TO REMOVE:");
-  console.log(guess);
   module.exports.getUser(username, function(err, result) {
     if(err) {
       throw err;
@@ -76,8 +74,6 @@ module.exports.removeGuess = function(username, guess, options, callback) {
       return;
     }
     var guesses = result[0].guesses;
-    console.log("GUESSES BEFORE REMOVING:");
-    console.log(guesses);
     var index = -1;
     for(var i=0; i<guesses.length; i++) {
       if(guesses[i].date.getTime() == new Date(guess.date).getTime() &&
@@ -87,12 +83,9 @@ module.exports.removeGuess = function(username, guess, options, callback) {
         break;
       }
     }
-    console.log("INDEX --->" + index);
     if(index>-1) {
       guesses.splice(index, 1);
     }
-    console.log("GUESSES AFTER REMOVING:");
-    console.log(guesses);
     var query = {username: username};
     var update = {guesses: guesses};
     User.findOneAndUpdate(query, update, options, callback);
