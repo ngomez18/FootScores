@@ -1,7 +1,9 @@
 .welcome
 {
   text-align: center;
+
 }
+
 .content-divider
 {
     margin: 2em 0;
@@ -31,7 +33,7 @@ h1
 }
 .matches
 {
-  height: 5em;
+  height: 6em;
 }
 
 input::-webkit-outer-spin-button,
