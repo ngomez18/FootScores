@@ -21,6 +21,7 @@ var database = require('./database/mongo');
 var dbConfig = require('./database/mongo-config');
 var User = require('./models/user');
 var index = require('./routes/index');
+var auth = require('./routes/auth');
 var users = require('./routes/users');
 var competitions = require('./routes/competitions');
 var teams = require('./routes/teams');
@@ -45,6 +46,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/auth', auth);
 app.use('/users', users);
 app.use('/competitions', competitions);
 app.use('/teams', teams);
@@ -106,13 +108,13 @@ var processResults = function(data) {
                 if(err) {
                   throw err;
                 }
-                console.log("Updated scores");
+                console.log("------Updated scores");
               });
               User.removeGuess(currUser.username, usrGuess, {}, function(err, response) {
                 if(err) {
                   throw err;
                 }
-                console.log("Removed guess");
+                console.log("------Removed guess");
               });
             }
           }
@@ -126,7 +128,7 @@ var checkGuess = function(guess, homeTeamScore, awayTeamScore) {
   return guess.homeTeamScore == homeTeamScore && guess.awayTeamScore == awayTeamScore;
 }
 
-var update = new CronJob('* * * *', checkResults);
+var update = new CronJob('0 0 * * * *', checkResults);
 update.start();
 
 /************************************************

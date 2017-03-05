@@ -6,7 +6,7 @@ var SALT_WORK_FACTOR = 10;
 var userSchema = new Schema({
   username: {type: String, unique: true, required: true},
   password: {type: String, required: true},
-  admin: {type: Boolean, required: true},
+  admin: {type: Boolean, default: false, required: true},
   email: {type: String, required: true},
   name: String,
   score: {type: Number, default: 0, required: true},
@@ -18,6 +18,10 @@ var userSchema = new Schema({
     awayTeamScore: Number
   }]
 });
+
+userSchema.methods.correctPassword = function(pass) {
+  return this.password == pass;
+};
 
 userSchema.methods.findGuess = function(homeTeam, awayTeam) {
   for (var i = 0; i < this.guesses.length; i++) {

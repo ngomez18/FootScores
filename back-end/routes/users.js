@@ -47,7 +47,6 @@ router.get('/:user', function(req, res, next) {
 
 //GET users who guessed a certain match
 router.get('/guess/:homeTeam-:awayTeam', function(req, res, next) {
-  console.log("BUSCANDO USUARIOS");
   User.getUserByGuess(req.params.homeTeam, req.params.awayTeam, function(err, data) {
     if(err) {
       throw err;

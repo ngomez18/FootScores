@@ -14,3 +14,7 @@ module.exports.authenticate = function(req, res) {
     token: token
   });
 };
+
+module.exports.generateToken = function(req, res) {
+  var user = req.headers.user;
+}

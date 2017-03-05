@@ -12,7 +12,7 @@ var router = express.Router();
 ************************************************/
 var fixtures = require('../api/football-api');
 var database = require('../database/mongo');
-var auth = require('../auth/auth');
+var auth = require('../auth/authentication');
 
 
 /************************************************
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Authenticate with JWT
-router.get('/auth', auth.authenticate);
+router.get('/testauth', auth.authenticate);
 
 // GET any competitions matches
 router.get('/fixtures/:leagues', function(req, res, next) {
