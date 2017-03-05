@@ -34,6 +34,9 @@ class Partido extends Component {
 
     postGuess(event)
     {
+      var config = {
+        headers: {'Content-Type': 'application/json'}
+      };
       if(this.state.homeGoals ==='' || this.state.awayGoals ==='')
       {
         window.alert('Debes ingresar in valor');
@@ -53,7 +56,7 @@ class Partido extends Component {
         var guessJSON = JSON.stringify(guess);
         console.log(guessJSON);
         axios.put(URL+ "/users/fmartinez/guess",
-          guessJSON
+          guessJSON,config
         )
         .then(response => {
           //this.fijarInput;  aqui algo para que no pueda volver a poner un valor
