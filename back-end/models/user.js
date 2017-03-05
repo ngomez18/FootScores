@@ -9,7 +9,7 @@ var userSchema = new Schema({
   admin: {type: Boolean, required: true},
   email: {type: String, required: true},
   name: String,
-  score: {type: Number, required: true},
+  score: {type: Number, default: 0, required: true},
   guesses: [{
     date: Date,
     homeTeam: String,
@@ -34,6 +34,11 @@ module.exports = User;
 // Find all users
 module.exports.getUsers = function(callback) {
   return User.find(callback);
+};
+
+// Find all users sorted decreasingly by points
+module.exports.getLeaderboard = function(callback) {
+  return User.find(callback).sort({score:-1});
 };
 
 // Find the user with the given username

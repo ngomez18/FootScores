@@ -25,6 +25,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
+//GET users ordered decreasingly by score
+router.get('/leaderboard', function(req, res, next) {
+  User.getLeaderboard(function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
+  });
+});
+
 //GET specific user
 router.get('/:user', function(req, res, next) {
   User.getUser(req.params.user, function(err, data) {
@@ -61,7 +71,7 @@ router.post('/register', function(req, res, next) {
 router.put('/update/:username', function(req, res, next) {
   var username = req.params.username;
   var user = req.body;
-  User.udpateUser(username, user, {}, function(err, response) {
+  User.updateUser(username, user, {}, function(err, response) {
     if(err) {
       throw err;
     }
