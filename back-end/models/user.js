@@ -120,6 +120,21 @@ module.exports.removeGuess = function(username, guess, options, callback) {
   })
 };
 
+// Remove all guesses from a user
+module.exports.removeGuesses = function(username, options, callback) {
+  module.exports.getUser(username, function(err, result) {
+    if(err) {
+      throw err;
+    }
+    if(result.isEmpty) {
+      return;
+    }
+    var query = {username: username};
+    var update = {guesses: []};
+    User.findOneAndUpdate(query, update, options, callback);
+  })
+};
+
 // Modify a users score by a given amount
 module.exports.updateScore = function(username, scoreChange, options, callback) {
   module.exports.getUser(username, function(err, result) {

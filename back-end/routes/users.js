@@ -117,4 +117,15 @@ router.put('/:username/rmguess', function(req, res, next) {
   });
 });
 
+// Remove all guesses from a user
+router.put('/:username/rmall', function(req, res, next) {
+  var username = req.params.username;
+  User.removeGuesses(username, {}, function(err, response) {
+    if(err) {
+      throw err;
+    }
+    res.send('Update succesful!');
+  });
+});
+
 module.exports = router;
