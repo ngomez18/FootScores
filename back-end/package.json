@@ -11,6 +11,7 @@
     "body-parser": "*",
     "bootstrap": "^3.3.7",
     "cookie-parser": "*",
+    "cron": "^1.2.1",
     "debug": "*",
     "express": "*",
     "jsonwebtoken": "^7.3.0",
