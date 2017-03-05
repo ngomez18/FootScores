@@ -9,16 +9,31 @@ class App extends Component {
 
  constructor(props)
   {
+    axios.get(URL+"/users/leaderboard").then(response => {
+      this.setState(
+      {
+        usuarios: response.data
+      });
+      console.log(response.data);
+    });
+    axios.get(URL+"/fixtures/PD").then(response => {
+      this.setState(
+      {
+        ligaBBVA: response.data
+      });
+      console.log(response.data);
+    });
     super(props);
     this.state=
     {
-      usuarios:[]
+      usuarios:[],
+      ligaBBVA:[]
     }
   }
 
-  getUsers()
+  getUsersLeaderboard()
   {
-    axios.get(URL+"/users/").then(response => {
+    axios.get(URL+"/users/leaderboard").then(response => {
       this.setState(
       {
         usuarios: response.data
@@ -31,7 +46,7 @@ class App extends Component {
     return (
       <div>
         <div className='row'>
-          <Navegacion onClickLeaderboard={this.getUsers.bind(this)}></Navegacion>
+          <Navegacion onClickLeaderboard={this.getUsersLeaderboard.bind(this)}></Navegacion>
         </div>
         <div className='row'>
           <div className='col-md-1'>
