@@ -19,7 +19,6 @@ var competitionsNames = ['World Cup', 'European Cup of Nations', 'Champions Leag
 var getCompetitionName = function(id) {
   return competitionsNames[competitions.indexOf(id)];
 }
-
 module.exports.competitions = competitions;
 module.exports.competitionsNames = competitionsNames;
 module.exports.getCompetitionName = getCompetitionName;

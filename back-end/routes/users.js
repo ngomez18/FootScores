@@ -72,5 +72,28 @@ router.put('/score/:username', function(req, res, next) {
   }
 });
 
+// Add a  guess to a user
+router.put('/:username/guess', function(req, res, next) {
+  var username = req.params.username;
+  var guess = req.body;
+  User.addGuess(username, guess, {}, function(err, response) {
+    if(err) {
+      throw err;
+    }
+    res.send('Update succesful!');
+  });
+});
+
+// Remove a guess from a user
+router.put('/:username/rmguess', function(req, res, next) {
+  var username = req.params.username;
+  var guess = req.body;
+  User.removeGuess(username, guess, {}, function(err, response) {
+    if(err) {
+      throw err;
+    }
+    res.send('Update succesful!');
+  });
+});
 
 module.exports = router;

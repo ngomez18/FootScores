@@ -11,7 +11,9 @@ var User = mongoose.model('User', new Schema({
   name: String,
   score: {type: Number, required: true},
   guesses: [{
-    match: Number,
+    date: Date,
+    homeTeam: String,
+    awayTeam: String,
     homeTeamScore: Number,
     awayTeamScore: Number
   }]
@@ -45,6 +47,58 @@ module.exports.updateUser = function(username, user, options, callback) {
   User.findOneAndUpdate(query, update, options, callback);
 };
 
+// Add a guess to the user
+module.exports.addGuess = function(username, guess, options, callback) {
+  module.exports.getUser(username, function(err, result) {
+    if(err) {
+      throw err;
+    }
+    if(result.isEmpty) {
+      return;
+    }
+    var guesses = result[0].guesses;
+    var query = {username: result[0].username};
+    guesses.push(guess);
+    var update = {guesses: guesses};
+    User.findOneAndUpdate(query, update, options, callback);
+  })
+};
+
+// Remove a guess from the user
+module.exports.removeGuess = function(username, guess, options, callback) {
+  console.log("GUESS TO REMOVE:");
+  console.log(guess);
+  module.exports.getUser(username, function(err, result) {
+    if(err) {
+      throw err;
+    }
+    if(result.isEmpty) {
+      return;
+    }
+    var guesses = result[0].guesses;
+    console.log("GUESSES BEFORE REMOVING:");
+    console.log(guesses);
+    var index = -1;
+    for(var i=0; i<guesses.length; i++) {
+      if(guesses[i].date.getTime() == new Date(guess.date).getTime() &&
+        guesses[i].homeTeam == guess.homeTeam &&
+        guesses[i].awayTeam == guess.awayTeam) {
+        index = i;
+        break;
+      }
+    }
+    console.log("INDEX --->" + index);
+    if(index>-1) {
+      guesses.splice(index, 1);
+    }
+    console.log("GUESSES AFTER REMOVING:");
+    console.log(guesses);
+    var query = {username: username};
+    var update = {guesses: guesses};
+    User.findOneAndUpdate(query, update, options, callback);
+  })
+};
+
 // Modify a users score by a given amount
 module.exports.updateScore = function(username, scoreChange, options, callback) {
   module.exports.getUser(username, function(err, result) {
@@ -54,8 +108,8 @@ module.exports.updateScore = function(username, scoreChange, options, callback) 
     if(result.isEmpty) {
       return;
     }
-    var update = {score: result[0].score + scoreChange};
     var query = {username: result[0].username};
+    var update = {score: result[0].score + scoreChange};
     User.findOneAndUpdate(query, update, options, callback);
   });
 };
