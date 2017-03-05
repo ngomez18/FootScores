@@ -40,20 +40,24 @@ class Partido extends Component {
       }
       else
       {
+        var homeGoalsNumber = parseInt(this.state.homeGoals);
+        var awayGoalsNumber = parseInt(this.state.awayGoals);
         var guess =
         {
-          date: this.props.partido.date,
-          homeTeam: this.props.partido.homeTeamName,
-          awayTeam: this.props.partido.awayTeamName,
-          homeTeamScore: this.state.homeGoals,
-          awayTeamScore: this.state.awayGoals
+          "date": this.props.partido.date,
+          "homeTeam": this.props.partido.homeTeamName,
+          "awayTeam": this.props.partido.awayTeamName,
+          "homeTeamScore": homeGoalsNumber,
+          "awayTeamScore": awayGoalsNumber
         }
-        axios.post(URL+ "/:username/guess", {
-          guess
-        })
+        var guessJSON = JSON.stringify(guess);
+        console.log(guessJSON);
+        axios.put(URL+ "/users/fmartinez/guess",
+          guessJSON
+        )
         .then(response => {
           //this.fijarInput;  aqui algo para que no pueda volver a poner un valor
-          console.log('done');
+          console.log(response);
         })
       }
     }
