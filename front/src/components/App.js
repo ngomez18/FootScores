@@ -18,9 +18,10 @@ class App extends Component {
           <Navegacion></Navegacion>
         </div>
         <div className='row'>
-          <div className='col-md-1'></div>
-          <div className='col-md-10'>
-            <h1>Hola</h1>
+          <div className='col-md-1'>
+          </div>
+          <div className='col-md-9'>
+            {this.props.children}
           </div>
           <div className='col-md-1'></div>
         </div>
