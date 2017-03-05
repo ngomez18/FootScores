@@ -34,9 +34,16 @@ router.get('/fixtures/:leagues', function(req, res, next) {
   });
 });
 
-//GET fixtures from every relevant competition
+//GET upcoming fixtures from every relevant competition
 router.get('/fixtures', function(req, res, next) {
   var matches = fixtures.getMatchesNextWeek(function(data) {
+    res.json(data);
+  });
+});
+
+//GET results from every relevant competition
+router.get('/results', function(req, res, next) {
+  var matches = fixtures.getMatchesWeekBefore(function(data) {
     res.json(data);
   });
 });

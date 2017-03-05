@@ -35,6 +35,17 @@ router.get('/:user', function(req, res, next) {
   });
 });
 
+//GET users who guessed a certain match
+router.get('/guess/:homeTeam-:awayTeam', function(req, res, next) {
+  console.log("BUSCANDO USUARIOS");
+  User.getUserByGuess(req.params.homeTeam, req.params.awayTeam, function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
+  });
+});
+
 //POST a new user
 router.post('/register', function(req, res, next) {
   var user = req.body;
@@ -76,6 +87,7 @@ router.put('/score/:username', function(req, res, next) {
 router.put('/:username/guess', function(req, res, next) {
   var username = req.params.username;
   var guess = req.body;
+  guess.date = new Date(guess.date);
   User.addGuess(username, guess, {}, function(err, response) {
     if(err) {
       throw err;

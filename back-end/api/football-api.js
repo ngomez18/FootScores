@@ -40,10 +40,10 @@ module.exports.getMatchesByCompetition = function(id, callback) {
   });
 };
 
-// Get all the matches that took place the previous week
+// Get all the matches that took place the previous day
 module.exports.getMatchesWeekBefore = function(callback) {
   var options = config.options;
-  options.url = config.hostname + '/fixtures?timeFrame=n7';
+  options.url = config.hostname + '/fixtures?timeFrame=p1&league=' + competitions.join(',');
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       callback(JSON.parse(body).fixtures);

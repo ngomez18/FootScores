@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
-var User = mongoose.model('User', new Schema({
+var userSchema = new Schema({
   username: {type: String, unique: true, required: true},
   password: {type: String, required: true},
   admin: {type: Boolean, required: true},
@@ -17,7 +17,17 @@ var User = mongoose.model('User', new Schema({
     homeTeamScore: Number,
     awayTeamScore: Number
   }]
-}));
+});
+
+userSchema.methods.findGuess = function(homeTeam, awayTeam) {
+  for (var i = 0; i < this.guesses.length; i++) {
+    if(this.guesses[i].homeTeam == homeTeam && this.guesses[i].awayTeam == awayTeam) {
+      return this.guesses[i];
+    }
+  }
+};
+
+var User = mongoose.model('User', userSchema);
 
 module.exports = User;
 
@@ -30,6 +40,15 @@ module.exports.getUsers = function(callback) {
 module.exports.getUser = function(username, callback) {
   return User.find({username: username}, callback);
 };
+
+// Find the users who have a guess for a certain match
+module.exports.getUserByGuess = function(homeTeam, awayTeam, callback) {
+  var query = {
+    'guesses.homeTeam': homeTeam,
+    'guesses.awayTeam': awayTeam
+  };
+  return User.find(query, callback);
+}
 
 // Save a given user to the database
 module.exports.saveUser = function(user, callback) {

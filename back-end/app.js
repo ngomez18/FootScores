@@ -19,6 +19,7 @@ var cors = require('cors');
 ************************************************/
 var database = require('./database/mongo');
 var dbConfig = require('./database/mongo-config');
+var User = require('./models/user');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var competitions = require('./routes/competitions');
@@ -81,19 +82,52 @@ db.once('open', function() {
   FUNCTIONS
 ************************************************/
 function checkResults() {
-  fixtures.getMatchesWeekBefore(function(data) {
-    var matches = data[0];
-    for (var i = 0; i < matches.length; i++) {
-      if(matches[i].status == 'FINISHED') {
-
-      }
-    }
-  });
+  console.log("PROCESSING RESULTS...");
+  fixtures.getMatchesWeekBefore(processResults);
 };
 
-checkResults();
-// var update = new CronJob('* * * *', checkResults);
-// update.start();
+var processResults = function(data) {
+  var matches = data;
+  console.log("UPDATING SCORES FROM " + matches.length + " MATCHES");
+  for (var i = 0; i < matches.length; i++) {
+    if(matches[i].status == 'FINISHED') {
+      console.log("--UPDATING RESULTS FOR "  + matches[i].homeTeamName + " - " + matches[i].awayTeamName);
+      User.getUserByGuess(matches[i].homeTeamName, matches[i].awayTeamName, function(err, result) {
+        if(err) {
+          throw err;
+        }
+        if(!result.isEmpty) {
+          console.log("----FOUND " + result.length + " USERS TO UPDATE");
+          for (var i = 0; i < result.length; i++) {
+            var currUser = result[i];
+            var usrGuess = currUser.findGuess(matches[i].homeTeamName, matches[i].awayTeamName);
+            if(checkGuess(usrGuess, matches[i].result.goalsHomeTeam, matches[i].result.goalsAwayTeam)) {
+              User.updateScore(currUser.username, 10, {}, function(err, response) {
+                if(err) {
+                  throw err;
+                }
+                console.log("Updated scores");
+              });
+              User.removeGuess(currUser.username, usrGuess, {}, function(err, response) {
+                if(err) {
+                  throw err;
+                }
+                console.log("Removed guess");
+              });
+            }
+          }
+        }
+      });
+    }
+  }
+}
+
+var checkGuess = function(guess, homeTeamScore, awayTeamScore) {
+  return guess.homeTeamScore == homeTeamScore && guess.awayTeamScore == awayTeamScore;
+}
+
+var update = new CronJob('* * * *', checkResults);
+update.start();
 
 /************************************************
   SERVE STATIC FILES
