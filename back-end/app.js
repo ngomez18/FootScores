@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var mongoose = require('mongoose');
-var cron = require('cron');
+var CronJob = require('cron').CronJob;
+var cors = require('cors');
 
 
 /************************************************
@@ -34,7 +35,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-
+app.use(cors());
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -79,7 +80,20 @@ db.once('open', function() {
 /************************************************
   FUNCTIONS
 ************************************************/
+function checkResults() {
+  fixtures.getMatchesWeekBefore(function(data) {
+    var matches = data[0];
+    for (var i = 0; i < matches.length; i++) {
+      if(matches[i].status == 'FINISHED') {
 
+      }
+    }
+  });
+};
+
+checkResults();
+// var update = new CronJob('* * * *', checkResults);
+// update.start();
 
 /************************************************
   SERVE STATIC FILES
