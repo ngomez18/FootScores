@@ -54,3 +54,11 @@ input
   background-color: #04BC00 !important;*/
   background-image: linear-gradient(to bottom,#00fb2e 0,#008a12 100%);
 }
+.guessButton
+{
+  color: #fff;
+  background-color: #04BC00;
+  border: none;
+  margin-top: 0.1em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.30);
+}

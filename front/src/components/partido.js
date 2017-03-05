@@ -83,7 +83,7 @@ class Partido extends Component {
                                                     <input className='col-md-2 col-xs-6' type="number" name="awayGoals" onChange={this.setAwayGoals.bind(this)}></input>
                                                 </div>
                                                 <div className='row'>
-                                                    <button type='button' className='guessButton' onClick={this.postGuess.bind(this)}>Submit</button>
+                                                    <button type='button' className='guessButton' onClick={this.postGuess.bind(this)}>Enviar</button>
                                                 </div>
                                             </form>
                                             <span className='col-md-4 col-xs-0'></span>
