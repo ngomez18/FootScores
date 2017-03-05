@@ -12,3 +12,43 @@
   list-style-type:none;
   font-size: 1.2em;
 }
+h1
+{
+  text-align: center;
+}
+.thead-inverse
+{
+  /*background-color: #292b2c;*/
+  background-color: #04BC00;
+  color: #fff;
+}
+.table-matches
+{
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.30);
+  margin-bottom: 2em;
+}
+.matches
+{
+  height: 5em;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input:focus {
+    outline: none;
+}
+input
+{
+  /*background-color: #04BC00;*/
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a
+{
+  /*background-image: none !important;
+  background-color: #04BC00 !important;*/
+  background-image: linear-gradient(to bottom,#00fb2e 0,#008a12 100%);
+}

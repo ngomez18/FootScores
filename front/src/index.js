@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {browserHistory, Router, Route, IndexRoute} from 'react-router'
-import './style/index.css';
+import {browserHistory, Router, Route, IndexRoute} from 'react-router';
 import App from './components/App';
 import Home from './components/home';
 import Leaderboard from './components/leaderboard';

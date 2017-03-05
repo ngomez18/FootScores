@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import '../style/leaderboard.css';
 import '../style/App.css';
-
-
 
 class Leaderboard extends Component {
 
