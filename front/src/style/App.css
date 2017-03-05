@@ -1,0 +1,14 @@
+.welcome
+{
+  text-align: center;
+}
+.content-divider
+{
+    margin: 2em 0;
+}
+#welcome-list
+{
+  text-align: center;
+  list-style-type:none;
+  font-size: 1.2em;
+}
