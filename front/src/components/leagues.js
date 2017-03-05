@@ -10,14 +10,16 @@ class Leagues extends Component {
 
     render() {
         return (
+          <div>
             <div className='row'>
-              <div className='col-md-10'>
-                <h1>Leagues</h1>
-              </div>
-              <div className='col-md-2'>
-                <h1>ligas</h1>
+              <div className='col-md-12'>
+                <h1>Partidos de la semana</h1>
               </div>
             </div>
+            <div className='row'>
+              
+            </div>
+          </div>
         );
     }
 }

@@ -5,10 +5,7 @@ import '../style/App.css';
 
 class Navegacion extends Component {
 
-    /*  constructor(props)
-  {
-    super(props)
-  }*/
+
 
     render() {
         return (
@@ -29,7 +26,7 @@ class Navegacion extends Component {
                             <NavItem eventKey={2}>Leagues</NavItem>
                           </LinkContainer>
                           <LinkContainer to="/leaderboard">
-                            <NavItem eventKey={3}>Leaderboard</NavItem>
+                            <NavItem eventKey={3} onClick={this.props.onClickLeaderboard}>Leaderboard</NavItem>
                           </LinkContainer>
                         </Nav>
                         <Nav pullRight>

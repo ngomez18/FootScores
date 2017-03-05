@@ -1,23 +1,48 @@
 import React, {Component} from 'react';
+import '../style/leaderboard.css';
 import '../style/App.css';
+
+
 
 class Leaderboard extends Component {
 
-    /*  constructor(props)
-  {
-    super(props)
-  }*/
-
     render() {
+      var i = 0;
         return (
+          <div>
             <div className='row'>
-              <div className='col-md-10'>
+              <div className='col-md-12'>
                 <h1>Leaderboard</h1>
               </div>
-              <div className='col-md-2'>
-                <h1>Chao</h1>
+            </div>
+            <hr className="content-divider"></hr>
+            <div className='row'>
+              <div className='col-md-12'>
+                <table className="table">
+                  <thead className="thead-inverse">
+                    <tr>
+                      <th>#</th>
+                      <th>Nombre</th>
+                      <th>Puntaje</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.props.usuarios.map(usuario =>
+                      {
+                        i++;
+                        return(
+                          <tr key={i}>
+                            <th scope="row" key={i+1}>{i}</th>
+                            <td key={i+2}>{usuario.name}</td>
+                            <td key={i+3}>{usuario.score}</td>
+                          </tr>
+                        );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
+          </div>
         );
     }
 }
