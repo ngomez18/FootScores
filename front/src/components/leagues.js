@@ -1,11 +1,23 @@
 import React, {Component} from 'react';
 import '../style/App.css';
+import Partido from './partido'
 class Leagues extends Component {
 
-    /*  constructor(props)
-  {
-    super(props)
-  }*/
+    constructor(props)
+    {
+        super(props)
+        this.state = {}
+    }
+
+
+
+    postGuess(home,away,date)
+    {
+
+        console.log('entro');
+        console.log(home+' '+away+' '+date);
+
+    }
 
     render() {
         var i = 0;
@@ -25,31 +37,10 @@ class Leagues extends Component {
                 </div>
                 <hr className="content-divider"></hr>
                 <div className='row'>
-                    <div className='col-md-12'>
-
-                        {this.props.ligaBBVA.map(partido => {
-                            i++;
-                            return (
-                                <div key={i} className='row'>
-                                    <table key={i + 1} className='table-matches'>
-                                        <tbody key={i + 2}>
-                                            <tr key={i + 3}>
-                                                <td className='col-md-4 matches' key={i + 4}>{partido.homeTeamName}</td>
-                                                <td className='col-md-4 matches' key={i + 5}>
-                                                    <span className='col-md-4'></span>
-                                                    <input className='col-md-2' type="number" name="homeGoals"></input>
-                                                    <input className='col-md-2' type="number" name="awayGoals"></input>
-                                                    <span className='col-md-4'></span>
-                                                </td>
-                                                <td className='col-md-4 matches' key={i + 6}>{partido.awayTeamName}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            );
-                        })}
-
-                    </div>
+                {this.props.ligaBBVA.map(partido =>{
+                  i++;
+                  return <Partido key={i} partido={partido} />
+                })}
                 </div>
             </div>
         );
