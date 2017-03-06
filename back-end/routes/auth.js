@@ -17,30 +17,44 @@ const secretKey = 'ngomezfmartinez';
 /************************************************
   FUNCTIONS
 ************************************************/
+var processResponse = function(req, res, user) {
+
+};
+
 // login function
 router.post('/login', function(req, res, next) {
-  var user = req.body.user;
+  console.log("Entró al método");
+  var user = req.body.username;
   var pass = req.body.password;
   User.getUser(user, function(err, response) {
     if(err) {
       throw err;
-    }
-    if(response.lenth === 0) {
-      res.status(403).send('No such username');
-    } else if(response[0]){
-      if(response[0].correctPassword(pass)) {
-        var token = jwt.sign({
-          username: response[0].username,
-          admin: response[0].admin
-        }, secretKey, {
-          expiresIn: 60*60*12 //12 hours
-        });
-        res.status(200).json({
-          success: true,
-          token: token
-        });
+    } else {
+      console.log("response:");
+      console.log(response);
+      var userFound = response[0];
+      console.log("user");
+      console.log(userFound);
+      if(response.length < 1 || !response[0] || !userFound) {
+        console.log("No such username " + user);
+        res.status(403).send('No such username');
+        return;
       } else {
-        res.status(403).send('Wrong password');
+        console.log('Comparing ' + user + ' to ');
+        if(!userFound.correctPassword(pass)) {
+          res.status(403).send('Wrong password');
+        } else {
+          var token = jwt.sign({
+            username: userFound.username,
+            admin: userFound.admin
+          }, secretKey, {
+            expiresIn: 60*60*12 //12 hours
+          });
+          res.status(200).json({
+            success: true,
+            token: token
+          });
+        }
       }
     }
   });
