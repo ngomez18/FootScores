@@ -25,9 +25,9 @@ router.post('/login', function(req, res, next) {
     if(err) {
       throw err;
     }
-    if(response.isEmpty) {
+    if(response.lenth === 0) {
       res.status(403).send('No such username');
-    } else {
+    } else if(response[0]){
       if(response[0].correctPassword(pass)) {
         var token = jwt.sign({
           username: response[0].username,
