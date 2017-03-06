@@ -57,7 +57,7 @@ router.get('/guess/:homeTeam-:awayTeam', function(req, res, next) {
 });
 
 //POST a new user
-router.post('/register', function(req, res, next) {
+router.post('/', function(req, res, next) {
   var user = req.body;
   User.saveUser(user, function(err, response) {
     if(err) {
@@ -66,6 +66,7 @@ router.post('/register', function(req, res, next) {
     res.json(response);
   });
 });
+
 
 // UPDATE a users personal info
 router.put('/update/:username', function(req, res, next) {
