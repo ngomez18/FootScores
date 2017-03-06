@@ -5,63 +5,50 @@ import '../style/App.css';
 
 class Partido extends Component {
 
-    constructor(props)
-    {
-
+    constructor(props) {
         super(props);
         this.state = {
             homeGoals: '',
-            awayGoals: ''
-
+            awayGoals: '',
+            user: ''
         }
     }
-    setHomeGoals(event)
-  {
-    this.setState({homeGoals: event.target.value}, function()
-    {
+    setHomeGoals(event) {
+    this.setState({homeGoals: event.target.value}, function() {
       console.log(this.state);
     });
-
   }
-  setAwayGoals(event)
-  {
-    this.setState({awayGoals: event.target.value}, function()
-    {
+  setAwayGoals(event) {
+    this.setState({awayGoals: event.target.value}, function() {
         console.log(this.state);
     });
   }
 
-    postGuess(event)
-    {
-      var config = {
-        headers: {'Content-Type': 'application/json'}
-      };
-      if(this.state.homeGoals ==='' || this.state.awayGoals ==='')
-      {
-        window.alert('Debes ingresar in valor');
-      }
-      else
-      {
-        var homeGoalsNumber = parseInt(this.state.homeGoals,10);
-        var awayGoalsNumber = parseInt(this.state.awayGoals,10);
-        var guess =
-        {
-          "date": this.props.partido.date,
-          "homeTeam": this.props.partido.homeTeamName,
-          "awayTeam": this.props.partido.awayTeamName,
-          "homeTeamScore": homeGoalsNumber,
-          "awayTeamScore": awayGoalsNumber
-        }
-        var guessJSON = JSON.stringify(guess);
-        axios.put(URL+ "/users/fmartinez/guess",
-          guessJSON,config
-        )
-        .then(response => {
-          //this.fijarInput;  aqui algo para que no pueda volver a poner un valor
-          console.log(response);
-        })
-      }
+  postGuess(event) {
+    var config = {
+      headers: {'Content-Type': 'application/json'}
+    };
+    if(this.state.homeGoals ==='' || this.state.awayGoals ==='') {
+      window.alert('Debes ingresar in valor');
     }
+    else {
+      var homeGoalsNumber = parseInt(this.state.homeGoals,10);
+      var awayGoalsNumber = parseInt(this.state.awayGoals,10);
+      var guess = {
+        "date": this.props.partido.date,
+        "homeTeam": this.props.partido.homeTeamName,
+        "awayTeam": this.props.partido.awayTeamName,
+        "homeTeamScore": homeGoalsNumber,
+        "awayTeamScore": awayGoalsNumber
+      }
+      var guessJSON = JSON.stringify(guess);
+      axios.put(URL+ "/users/" + this.state.user + "/guess", guessJSON, config)
+      .then(response => {
+        //this.fijarInput;  aqui algo para que no pueda volver a poner un valor
+        console.log(response);
+      })
+    }
+  }
 
     render() {
         return (
@@ -81,6 +68,11 @@ class Partido extends Component {
                                                     <input className='col-md-2 col-xs-6' type="number" name="awayGoals" onChange={this.setAwayGoals.bind(this)}></input>
                                                 </div>
                                                 <div className='row'>
+                                                    <input type="text" onChange={(event) => {
+                                                      this.setState({
+                                                        user: event.target.value
+                                                      })
+                                                    }}/>
                                                     <button type='button' className='guessButton' onClick={this.postGuess.bind(this)}>Enviar</button>
                                                 </div>
                                             </form>

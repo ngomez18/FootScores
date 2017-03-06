@@ -6,7 +6,8 @@ import Login from './login';
 import Navegacion from './navbar';
 import '../style/App.css';
 
-const URL="https://footscores.herokuapp.com";
+// const URL="https://footscores.herokuapp.com";
+const URL="http://localhost:3000";
 
 const signupStyle={
   content : {
@@ -59,53 +60,81 @@ class App extends Component {
       loginModelOpen: false,
       token: ''
     };
+    this.closeSignupModal = this.closeSignupModal.bind(this);
+    this.openSignupModal = this.openSignupModal.bind(this);
+    this.addTokenToState = this.addTokenToState.bind(this);
+    this.openLoginModal = this.openLoginModal.bind(this);
+    this.closeLoginModal = this.closeLoginModal.bind(this);
+    this.signup = this.signup.bind(this);
+    this.login = this.login.bind(this);
+  };
+
+  signup(username, password, email, name) {
+    console.log("Signing up new user");
+    if(username && password && email && name) {
+      console.log("Valid fields");
+      axios({
+        url: URL+'/users/',
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        data: {
+          username: username,
+          password: password,
+          email: email,
+          name: name
+        },
+        responseType: 'json',
+      }).then(function (response) {
+        console.log("Got the following response:");
+        console.log(JSON.stringify(response));
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  };
+
+  login(username, password) {
+    console.log("Singing in....");
+    if(username && password) {
+      console.log("Username and password provided");
+      axios({
+        url: URL+'/auth/login',
+        method: 'post',
+        headers: {
+            'content-type': 'application/json',
+        },
+        data: {
+          username: username,
+          password: password,
+        },
+        responseType: 'json',
+      }).then(function (response) {
+        if(response.data.success) {
+          this.addTokenToState(response.data.token);
+          this.closeLoginModal();
+          console.log('Token set to ' + response.data.token);
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   };
 
   openLoginModal() {
     this.setState({loginModalOpen: true});
-  }
+  };
 
   closeLoginModal() {
     this.setState({loginModalOpen: false});
-  }
-
-  signup(username, password, email, name) {
-    if(username && password && email && name) {
-      axios.post(URL+"/auth/login", {
-        username: username,
-        password: password,
-        email: email,
-        name: name
-      }).then(function (response) {
-        if(response.token) {
-          this.setState({
-            token: response.token,
-            loginModelOpen: false
-          })
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }
-
-  login(username, password) {
-    if(username && passsword) {
-      axios.post(URL+"/auth/login", {
-        username: username,
-        password: password
-      }).then(function (response) {
-        if(response.token) {
-          this.setState({
-            token: response.token,
-            loginModelOpen: false
-          })
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
   };
+
+  addTokenToState(token) {
+    this.setState({
+      token: token
+    });
+  }
 
   openSignupModal() {
     this.setState({signupModalOpen: true});

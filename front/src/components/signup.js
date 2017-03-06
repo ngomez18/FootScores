@@ -47,12 +47,10 @@ class Signup extends Component {
                   }}/>
               </div>
               <button className="btn btn-md btn-primary" onClick={() => {
-                //this.props.signup(this.state.username, this.state.password, this.state.email, this.state.name);
+                this.props.signup(this.state.username, this.state.password, this.state.email, this.state.name);
                 this.props.close();
               }}> Sign up </button>
-              <button className="btn btn-md btn-danger" onClick={() => {
-                this.props.close()
-              }}>Cancel</button>
+              <button className="btn btn-md btn-danger" onClick={() => {this.props.close()}}>Cancel</button>
         </div>
       </div>
     )

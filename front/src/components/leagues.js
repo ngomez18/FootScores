@@ -5,37 +5,29 @@ import axios from 'axios';
 const URL = "https://footscores.herokuapp.com";
 class Leagues extends Component {
 
-    constructor(props)
-    {
-        super(props)
-        this.state =
-        {
-          liga:[],
-          lleno: true,
-          cargando: false
-        }
+    constructor(props) {
+      super(props)
+      this.state = {
+        liga:[],
+        lleno: true,
+        cargando: false
+      }
     }
 
-
-    getFixturesLeague(LeagueCode)
-    {
-      this.setState(
-      {
+    getFixturesLeague(LeagueCode) {
+      this.setState({
         cargando:true
       });
       axios.get(URL+"/fixtures/"+LeagueCode).then(response => {
-        if(response.data.length>0)
-        {
-          this.setState(
-          {
+        if(response.data.length>0) {
+          this.setState({
             lleno: true,
             liga: response.data,
             cargando:false
           });
         }
-        else
-        {this.setState(
-          {
+        else {
+          this.setState({
             liga:[],
             lleno:false,
             cargando:false
@@ -43,7 +35,6 @@ class Leagues extends Component {
         }
       });
     }
-
 
     render() {
         var i = 0;

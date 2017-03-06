@@ -31,12 +31,10 @@ class Login extends Component {
                   }}/>
               </div>
               <button className="btn btn-md btn-success" onClick={() => {
-                //this.props.login(this.state.username, this.state.password);
+                this.props.login(this.state.username, this.state.password);
                 this.props.close();
               }}>Sign in</button>
-              <button className="btn btn-md btn-danger" onClick={() => {
-                this.props.close();
-              }}>Cancel</button>
+              <button className="btn btn-md btn-danger" onClick={() => {this.props.close()}}>Cancel</button>
         </div>
       </div>
     );
