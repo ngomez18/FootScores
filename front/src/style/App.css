@@ -47,6 +47,32 @@ h3
 {
   text-align: center;
 }
+.box{
+    border-radius: 1em;
+    box-shadow: 1em 1em 2em 0em rgba(0, 0, 0, 0.16), 0em 2em 4em 0em rgba(0, 0, 0, 0.12);
+    padding: 1em 2em;
+    display: block;
+    margin-top: 3em;
+    border: 0.1em solid rgba(0, 0, 0, 0.1);
+}
+.box li, p
+{
+  margin: 0 0 0.3em 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+.box h3
+{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+}
+.box-icon
+{
+  margin: 0 auto;
+  vertical-align: top;
+  margin-top: -3em;
+  display: table;
+}
 .thead-inverse
 {
   /*background-color: #292b2c;*/
@@ -107,4 +133,14 @@ input
   border: none;
   margin-top: 0.1em;
   box-shadow: 0 1px 3px rgba(0,0,0,0.30);
+}
+.img-home
+{
+  height: 25em;
+  width: 25em;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-radius: 50%;
+  background-size: 100% auto;
+  box-shadow: 0 1em 3em rgba(0,0,0,0.60);
 }
