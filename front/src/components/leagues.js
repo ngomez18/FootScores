@@ -11,16 +11,14 @@ class Leagues extends Component {
         this.state =
         {
           liga:[],
-          lleno: false
+          lleno: true
         }
     }
 
 
     getFixturesLeague(LeagueCode)
     {
-      console.log(LeagueCode);
       axios.get(URL+"/fixtures/"+LeagueCode).then(response => {
-        console.log(response.data);
         if(response.data.length>0)
         {
           this.setState(

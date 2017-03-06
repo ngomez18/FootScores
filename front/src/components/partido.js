@@ -16,22 +16,6 @@ class Partido extends Component {
         }
     }
 
-    setHomeGoals(event)
-    {
-      this.setState({homeGoals: event.target.value}, function()
-      {
-        console.log(this.state);
-      });
-
-    }
-    setAwayGoals(event)
-    {
-      this.setState({awayGoals: event.target.value}, function()
-      {
-          console.log(this.state);
-      });
-    }
-
     postGuess(event)
     {
       var config = {
@@ -54,7 +38,6 @@ class Partido extends Component {
           "awayTeamScore": awayGoalsNumber
         }
         var guessJSON = JSON.stringify(guess);
-        console.log(guessJSON);
         axios.put(URL+ "/users/fmartinez/guess",
           guessJSON,config
         )

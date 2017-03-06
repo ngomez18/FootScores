@@ -45,13 +45,11 @@ class App extends Component {
       this.setState({
         usuarios: response.data
       });
-      console.log(response.data);
     });
     axios.get(URL+"/fixtures/PD").then(response => {
       this.setState({
         ligaBBVA: response.data
       });
-      console.log(response.data);
     });
     super(props);
     this.state= {
@@ -83,7 +81,6 @@ class App extends Component {
       this.setState({
         usuarios: response.data
       });
-      console.log(response.data);
     });
   };
 
