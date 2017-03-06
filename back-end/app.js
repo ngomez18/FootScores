@@ -86,48 +86,46 @@ db.once('open', function() {
 function checkResults() {
   console.log("PROCESSING RESULTS...");
   fixtures.getMatchesWeekBefore(processResults);
+  console.log("DONE PROCESSING");
 };
 
 var processResults = function(data) {
-  var matches = data;
-  console.log("UPDATING SCORES FROM " + matches.length + " MATCHES");
-  for (var i = 0; i < matches.length; i++) {
-    if(matches[i].status == 'FINISHED') {
-      console.log("--UPDATING RESULTS FOR "  + matches[i].homeTeamName + " - " + matches[i].awayTeamName);
-      User.getUserByGuess(matches[i].homeTeamName, matches[i].awayTeamName, function(err, result) {
-        if(err) {
-          throw err;
-        }
-        if(!result.isEmpty) {
-          console.log("----FOUND " + result.length + " USERS TO UPDATE");
-          for (var i = 0; i < result.length; i++) {
-            var currUser = result[i];
-            var usrGuess = currUser.findGuess(matches[i].homeTeamName, matches[i].awayTeamName);
-            if(checkGuess(usrGuess, matches[i].result.goalsHomeTeam, matches[i].result.goalsAwayTeam)) {
-              User.updateScore(currUser.username, 10, {}, function(err, response) {
-                if(err) {
-                  throw err;
-                }
-                console.log("------Updated scores");
-              });
-              User.removeGuess(currUser.username, usrGuess, {}, function(err, response) {
-                if(err) {
-                  throw err;
-                }
-                console.log("------Removed guess");
-              });
-            }
-          }
-        }
-      });
-    }
-  }
+  data.forEach(processMatch);
 }
+
+var processMatch = function(match) {
+  if(match.status == 'FINISHED') {
+    User.getUserByGuess(match.homeTeamName, match.awayTeamName, function(err, result) {
+      if(err) {
+        throw err;
+      }
+      result.forEach(function(user) {
+        processUser(match, user);
+      });
+    });
+  }
+};
+
+var processUser = function(match, user) {
+  user.findGuess(match.homeTeamName, match.awayTeamName, function(guess) {
+    if(checkGuess(guess, match.result.goalsHomeTeam, match.result.goalsAwayTeam)) {
+      User.updateScore(user.username, 10, {}, handleError);
+    }
+    User.removeGuess(user.username, guess, {}, handleError);
+  });
+};
+
+var handleError = function(err, response) {
+  if(err) {
+    throw err;
+  }
+};
 
 var checkGuess = function(guess, homeTeamScore, awayTeamScore) {
   return guess.homeTeamScore == homeTeamScore && guess.awayTeamScore == awayTeamScore;
 }
 
+checkResults();
 var update = new CronJob('0 0 * * * *', checkResults);
 update.start();
 

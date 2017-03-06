@@ -23,12 +23,15 @@ userSchema.methods.correctPassword = function(pass) {
   return this.password == pass;
 };
 
-userSchema.methods.findGuess = function(homeTeam, awayTeam) {
+userSchema.methods.findGuess = function(homeTeam, awayTeam, callback) {
+  console.log("BUSCANDO " + homeTeam + "-" + awayTeam);
+  var result = {};
   for (var i = 0; i < this.guesses.length; i++) {
     if(this.guesses[i].homeTeam == homeTeam && this.guesses[i].awayTeam == awayTeam) {
-      return this.guesses[i];
+      result = this.guesses[i];
     }
   }
+  callback(result);
 };
 
 var User = mongoose.model('User', userSchema);
