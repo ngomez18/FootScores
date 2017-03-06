@@ -6,14 +6,28 @@
 .img-league
 {
   margin-top: 1em;
+  margin-bottom: 1em;
   height: 7em;
   width: 7em;
   background-repeat: no-repeat;
   background-position: 50%;
   border-radius: 50%;
   background-size: 100% auto;
-
+  cursor: pointer; cursor: hand;
   box-shadow: 0 1px 3px rgba(0,0,0,0.60);
+}
+.img-league:hover
+{
+  margin-bottom: 0em;
+  height: 8em;
+  width: 8em;
+  background-repeat: no-repeat;
+  background-position: 70%;
+  border-radius: 70%;
+  background-size: 100% auto;
+  cursor: pointer; cursor: hand;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.60);
+
 }
 .content-divider
 {

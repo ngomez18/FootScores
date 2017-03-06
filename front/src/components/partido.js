@@ -42,8 +42,8 @@ class Partido extends Component {
       }
       else
       {
-        var homeGoalsNumber = parseInt(this.state.homeGoals);
-        var awayGoalsNumber = parseInt(this.state.awayGoals);
+        var homeGoalsNumber = parseInt(this.state.homeGoals,10);
+        var awayGoalsNumber = parseInt(this.state.awayGoals,10);
         var guess =
         {
           "date": this.props.partido.date,
