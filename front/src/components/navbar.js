@@ -30,11 +30,11 @@ class Navegacion extends Component {
                           </LinkContainer>
                         </Nav>
                         <Nav pullRight>
-                          <NavItem eventKey={1} href="#">
+                          <NavItem eventKey={1} onClick={this.props.onClickSignup}>
                             <span className='glyphicon glyphicon-user'></span>
-                            Sign Up
+                             Sign Up
                           </NavItem>
-                          <NavItem eventKey={2} href="#">
+                          <NavItem eventKey={2} onClick={this.props.onClickLogin}>
                             <span className="glyphicon glyphicon-log-in"></span>
                             Login
                           </NavItem>
