@@ -10,6 +10,7 @@ var request = require('request');
   REQUIRE LOCAL MODULES
 ************************************************/
 var User = require('../models/user');
+var Auth = require('./auth');
 
 
 /************************************************
@@ -18,6 +19,16 @@ var User = require('../models/user');
 //GET users
 router.get('/', function(req, res, next) {
   User.getUsers(function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
+  });
+});
+
+//GET specific user
+router.get('/:user', function(req, res, next) {
+  User.getUser(req.params.user, function(err, data) {
     if(err) {
       throw err;
     }
@@ -35,15 +46,10 @@ router.get('/leaderboard', function(req, res, next) {
   });
 });
 
-//GET specific user
-router.get('/:user', function(req, res, next) {
-  User.getUser(req.params.user, function(err, data) {
-    if(err) {
-      throw err;
-    }
-    res.json(data);
-  });
-});
+// GET session info
+router.get('/me', function(req, res) {
+  res.json(req.decoded);
+})
 
 //GET users who guessed a certain match
 router.get('/guess/:homeTeam-:awayTeam', function(req, res, next) {

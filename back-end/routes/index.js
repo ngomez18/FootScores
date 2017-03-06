@@ -23,9 +23,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'FootScores' });
 });
 
-// Authenticate with JWT
-router.get('/testauth', auth.authenticate);
-
 // GET any competitions matches
 router.get('/fixtures/:leagues', function(req, res, next) {
   var leagues = req.params.leagues.split(',');

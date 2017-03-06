@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
-var SALT_WORK_FACTOR = 10;
 
 var userSchema = new Schema({
   username: {type: String, unique: true, required: true},
@@ -19,8 +18,22 @@ var userSchema = new Schema({
   }]
 });
 
+userSchema.pre('save', function(next) {
+	var user = this;
+	// hash the password only if the password has been changed or user is new
+	if (!user.isModified('password')) return next();
+	// generate the hash
+	bcrypt.hash(user.password, null, null, function(err, hash) {
+		if (err) return next(err);
+		// change the password to the hashed version
+		user.password = hash;
+		next();
+	});
+});
+
 userSchema.methods.correctPassword = function(pass) {
   return this.password == pass;
+  // return bcrypt.compareSync(pass, this.password);
 };
 
 userSchema.methods.findGuess = function(homeTeam, awayTeam, callback) {
