@@ -11,27 +11,34 @@ class Leagues extends Component {
         this.state =
         {
           liga:[],
-          lleno: true
+          lleno: true,
+          cargando: false
         }
     }
 
 
     getFixturesLeague(LeagueCode)
     {
+      this.setState(
+      {
+        cargando:true
+      });
       axios.get(URL+"/fixtures/"+LeagueCode).then(response => {
         if(response.data.length>0)
         {
           this.setState(
           {
             lleno: true,
-            liga: response.data
+            liga: response.data,
+            cargando:false
           });
         }
         else
         {this.setState(
           {
             liga:[],
-            lleno:false
+            lleno:false,
+            cargando:false
           });
         }
       });
@@ -41,6 +48,7 @@ class Leagues extends Component {
     render() {
         var i = 0;
         const estaLleno = this.state.lleno;
+        const cargo = this.state.cargando;
         return (
             <div>
                 <div className='row'>
@@ -118,6 +126,10 @@ class Leagues extends Component {
                 }) )
               : (<h3>No hay partidos disponibles para esta liga, selecciona otra!</h3>)}
                 </div>
+                <div className='row'>
+                  {cargo ? (<div className="loader col-md-12"></div>):(
+                    <div></div>
+                  )}</div>
             </div>
         );
     }

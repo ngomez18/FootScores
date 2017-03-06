@@ -59,6 +59,23 @@ h3
   text-align: center;
   box-shadow: 0 1px 3px rgba(0,0,0,0.30);
   margin-bottom: 2em;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+.loader {
+    border: 1.2em solid #f3f3f3; /* Light grey */
+    border-top: 1.2em solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+    animation: spin 2s linear infinite;
+    top:50%;
+    left:50%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 .matches
 {

@@ -10,14 +10,18 @@ class Home extends Component {
 
     render() {
         return (
+          <div>
             <div className='row'>
-              <div className='col-md-10'>
-                <h1>FootScores</h1>
-              </div>
-              <div className='col-md-2'>
-                <h1>Hello</h1>
+              <div className='col-md-12'>
+                <h1>Bienvenido a FootScores</h1>
               </div>
             </div>
+            <div className='row'>
+              <div className='col-md-12'>
+                <h3>Bienvenido a FootScores</h3>
+              </div>
+            </div>
+          </div>
         );
     }
 }
