@@ -15,6 +15,21 @@ class Partido extends Component {
 
         }
     }
+    setHomeGoals(event)
+  {
+    this.setState({homeGoals: event.target.value}, function()
+    {
+      console.log(this.state);
+    });
+
+  }
+  setAwayGoals(event)
+  {
+    this.setState({awayGoals: event.target.value}, function()
+    {
+        console.log(this.state);
+    });
+  }
 
     postGuess(event)
     {
