@@ -69,23 +69,42 @@ class App extends Component {
     this.setState({loginModalOpen: false});
   }
 
-  signup() {
-
+  signup(username, password, email, name) {
+    if(username && password && email && name) {
+      axios.post(URL+"/auth/login", {
+        username: username,
+        password: password,
+        email: email,
+        name: name
+      }).then(function (response) {
+        if(response.token) {
+          this.setState({
+            token: response.token,
+            loginModelOpen: false
+          })
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 
   login(username, password) {
-    axios.post(URL+"/auth/login", {
-      username: username,
-      password: password
-    }).then(function (response) {
-      if(response.token) {
-        this.setState({
-          token: response.token
-        })
-      }
-    }).catch(function (error) {
-      console.log(error);
-    });
+    if(username && passsword) {
+      axios.post(URL+"/auth/login", {
+        username: username,
+        password: password
+      }).then(function (response) {
+        if(response.token) {
+          this.setState({
+            token: response.token,
+            loginModelOpen: false
+          })
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   };
 
   openSignupModal() {
@@ -107,23 +126,27 @@ class App extends Component {
   render() {
     return (
       <div>
+        {/* <p>{this.state.token || 'No hay token'}</p> */}
         <Modal
           isOpen={this.state.signupModalOpen}
-          onRequestClose={this.closeSignupModal.bind(this)}
           contentLabel='Sign up'
           style={signupStyle}
-          signup={this.signup.bind(this)}
         >
-          <Signup></Signup>
+          <Signup
+            signup={this.signup.bind(this)}
+            close={this.closeSignupModal.bind(this)}
+          >
+          </Signup>
         </Modal>
         <Modal
           isOpen={this.state.loginModalOpen}
-          onRequestClose={this.closeLoginModal.bind(this)}
           contentLabel='Log in'
           style={loginStyle}
-          login={this.login.bind(this)}
         >
-          <Login></Login>
+          <Login
+            login={this.login.bind(this)}
+            close={this.closeLoginModal.bind(this)}
+            ></Login>
         </Modal>
         <div className='row'>
           <Navegacion

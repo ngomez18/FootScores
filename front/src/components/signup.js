@@ -18,10 +18,6 @@ class Signup extends Component {
           <h2>Sign up</h2>
           <hr />
         <div>
-          <form role="form" onSubmit={() => {
-            this.props.onSubmit(this.state.username, this.state.password, this.state.email, this.state.name);
-          }}>
-            <fieldset>
               <div className="form-group">
                   <input className="form-control" placeholder="Username" name="user" type="text" onChange={(event) => {
                     this.setState({
@@ -50,9 +46,13 @@ class Signup extends Component {
                     });
                   }}/>
               </div>
-              <input type="submit" className="btn btn-md btn-primary" />
-            </fieldset>
-          </form>
+              <button className="btn btn-md btn-primary" onClick={() => {
+                //this.props.signup(this.state.username, this.state.password, this.state.email, this.state.name);
+                this.props.close();
+              }}> Sign up </button>
+              <button className="btn btn-md btn-danger" onClick={() => {
+                this.props.close()
+              }}>Cancel</button>
         </div>
       </div>
     )
