@@ -46,6 +46,11 @@ router.post('/login', function(req, res, next) {
   });
 });
 
+// GET info stored in the token
+router.get('/me', function(req, res)) {
+  res.send(req.decoded);
+}
+
 module.exports.verify = function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   if(token) {

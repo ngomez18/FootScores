@@ -26,16 +26,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//GET specific user
-router.get('/:user', function(req, res, next) {
-  User.getUser(req.params.user, function(err, data) {
-    if(err) {
-      throw err;
-    }
-    res.json(data);
-  });
-});
-
 //GET users ordered decreasingly by score
 router.get('/leaderboard', function(req, res, next) {
   User.getLeaderboard(function(err, data) {
@@ -46,10 +36,15 @@ router.get('/leaderboard', function(req, res, next) {
   });
 });
 
-// GET session info
-router.get('/me', function(req, res) {
-  res.json(req.decoded);
-})
+//GET specific user
+router.get('/:user', function(req, res, next) {
+  User.getUser(req.params.user, function(err, data) {
+    if(err) {
+      throw err;
+    }
+    res.json(data);
+  });
+});
 
 //GET users who guessed a certain match
 router.get('/guess/:homeTeam-:awayTeam', function(req, res, next) {

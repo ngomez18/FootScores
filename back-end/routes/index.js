@@ -12,7 +12,6 @@ var router = express.Router();
 ************************************************/
 var fixtures = require('../api/football-api');
 var database = require('../database/mongo');
-var auth = require('../auth/authentication');
 
 
 /************************************************
