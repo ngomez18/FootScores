@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-const URL = "http://localhost:3000";
+const URL = "https://footscores.herokuapp.com";
 import '../style/App.css';
 
 class Partido extends Component {

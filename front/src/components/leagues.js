@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../style/App.css';
 import Partido from './partido';
 import axios from 'axios';
-const URL = "http://localhost:3000";
+const URL = "https://footscores.herokuapp.com";
 class Leagues extends Component {
 
     constructor(props)

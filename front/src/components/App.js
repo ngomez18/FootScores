@@ -6,7 +6,7 @@ import Login from './login';
 import Navegacion from './navbar';
 import '../style/App.css';
 
-const URL="http://localhost:3000";
+const URL="https://footscores.herokuapp.com";
 
 const signupStyle={
   content : {
@@ -56,8 +56,36 @@ class App extends Component {
       usuarios:[],
       ligaBBVA:[],
       signupModalOpen: false,
-      loginModelOpen: false
+      loginModelOpen: false,
+      token: ''
     };
+  };
+
+  openLoginModal() {
+    this.setState({loginModalOpen: true});
+  }
+
+  closeLoginModal() {
+    this.setState({loginModalOpen: false});
+  }
+
+  signup() {
+
+  }
+
+  login(username, password) {
+    axios.post(URL+"/auth/login", {
+      username: username,
+      password: password
+    }).then(function (response) {
+      if(response.token) {
+        this.setState({
+          token: response.token
+        })
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
   };
 
   openSignupModal() {
@@ -66,14 +94,6 @@ class App extends Component {
 
   closeSignupModal() {
     this.setState({signupModalOpen: false});
-  }
-
-  openLoginModal() {
-    this.setState({loginModalOpen: true});
-  }
-
-  closeLoginModal() {
-    this.setState({loginModalOpen: false});
   }
 
   getUsersLeaderboard() {
@@ -92,6 +112,7 @@ class App extends Component {
           onRequestClose={this.closeSignupModal.bind(this)}
           contentLabel='Sign up'
           style={signupStyle}
+          signup={this.signup.bind(this)}
         >
           <Signup></Signup>
         </Modal>
@@ -100,6 +121,7 @@ class App extends Component {
           onRequestClose={this.closeLoginModal.bind(this)}
           contentLabel='Log in'
           style={loginStyle}
+          login={this.login.bind(this)}
         >
           <Login></Login>
         </Modal>
