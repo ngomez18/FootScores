@@ -120,16 +120,17 @@ class Leagues extends Component {
                 </div>
                 <hr className="content-divider"></hr>
                 <div className='row'>
+                  {cargo ?
+                    (<div className="loader col-md-12"></div>):(
+                    <div></div>
+                  )}</div>
+                <div className='row'>
                 {estaLleno ? (this.state.liga.map(partido =>{
                   i++;
                   return <Partido key={i} partido={partido} />
                 }) )
               : (<h3>No hay partidos disponibles para esta liga, selecciona otra!</h3>)}
                 </div>
-                <div className='row'>
-                  {cargo ? (<div className="loader col-md-12"></div>):(
-                    <div></div>
-                  )}</div>
             </div>
         );
     }
