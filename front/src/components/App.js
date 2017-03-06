@@ -6,9 +6,9 @@ import Login from './login';
 import Navegacion from './navbar';
 import '../style/App.css';
 
-const URL = "http://localhost:3000";
+const URL="http://localhost:3000";
 
-const signupStyle = {
+const signupStyle={
   content : {
     top                   : '50%',
     left                  : '50%',
@@ -23,7 +23,7 @@ const signupStyle = {
   }
 };
 
-const loginStyle = {
+const loginStyle={
   content : {
     top                   : '50%',
     left                  : '50%',
@@ -94,7 +94,7 @@ class App extends Component {
           isOpen={this.state.signupModalOpen}
           onRequestClose={this.closeSignupModal.bind(this)}
           contentLabel='Sign up'
-          style = {signupStyle}
+          style={signupStyle}
         >
           <Signup></Signup>
         </Modal>
@@ -102,15 +102,15 @@ class App extends Component {
           isOpen={this.state.loginModalOpen}
           onRequestClose={this.closeLoginModal.bind(this)}
           contentLabel='Log in'
-          style = {loginStyle}
+          style={loginStyle}
         >
           <Login></Login>
         </Modal>
         <div className='row'>
           <Navegacion
             onClickLeaderboard={this.getUsersLeaderboard.bind(this)}
-            onClickSignup = {this.openSignupModal.bind(this)}
-            onClickLogin = {this.openLoginModal.bind(this)}
+            onClickSignup={this.openSignupModal.bind(this)}
+            onClickLogin={this.openLoginModal.bind(this)}
           >
           </Navegacion>
         </div>

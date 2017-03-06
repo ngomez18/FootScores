@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-  };
+
   render() {
     return (
       <div className="text-center">
-          <h3>Sign In</h3>
+          <h2>Sign In</h2>
           <hr />
         <div>
           <form role="form">
@@ -19,8 +16,7 @@ class Login extends Component {
               <div className="form-group">
                   <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
               </div>
-              {/* Change this to a button or input when using this as a form */}
-              <a href="javascript:;" className="btn btn-lg btn-success">Login</a>
+              <input type="submit" className="btn btn-md btn-success" />
             </fieldset>
           </form>
         </div>

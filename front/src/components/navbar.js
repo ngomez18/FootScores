@@ -36,7 +36,7 @@ class Navegacion extends Component {
                           </NavItem>
                           <NavItem eventKey={2} onClick={this.props.onClickLogin}>
                             <span className="glyphicon glyphicon-log-in"></span>
-                            Login
+                            Sign in
                           </NavItem>
                         </Nav>
                     </Navbar.Collapse>
