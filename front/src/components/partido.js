@@ -6,6 +6,7 @@ import '../style/App.css';
 class Partido extends Component {
 
     constructor(props) {
+      console.log('entro');
         super(props);
         this.state = {
             homeGoals: '',
@@ -55,8 +56,7 @@ class Partido extends Component {
           homeGoalsSent: this.state.homeGoals,
           awayGoalsSent: this.state.awayGoals
         });
-        console.log(response.data);
-      })
+      });
     }
   }
 

@@ -118,7 +118,7 @@ class Leagues extends Component {
                 <div className='row'>
                 {estaLleno ? (this.state.liga.map(partido =>{
                   i++;
-                  return <Partido key={i} partido={partido} />
+                  return <Partido key={partido.id} partido={partido} />
                 }) )
               : (<h3>No hay partidos disponibles para esta liga, selecciona otra!</h3>)}
                 </div>
