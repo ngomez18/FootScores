@@ -10,7 +10,7 @@ class Partido extends Component {
         this.state = {
             homeGoals: '',
             awayGoals: '',
-            user: ''
+            user: 'prueba'
         }
     }
     setHomeGoals(event) {
@@ -68,11 +68,11 @@ class Partido extends Component {
                                                     <input className='col-md-2 col-xs-6' type="number" name="awayGoals" onChange={this.setAwayGoals.bind(this)}></input>
                                                 </div>
                                                 <div className='row'>
-                                                    <input type="text" onChange={(event) => {
+                                                    {/* <input type="text" onChange={(event) => {
                                                       this.setState({
                                                         user: event.target.value
                                                       })
-                                                    }}/>
+                                                    }}/> */}
                                                     <button type='button' className='guessButton' onClick={this.postGuess.bind(this)}>Enviar</button>
                                                 </div>
                                             </form>

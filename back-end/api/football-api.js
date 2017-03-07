@@ -15,7 +15,7 @@ var config = require('./football-api-config');
   API METADATA
 ************************************************/
 var competitions = ['WC', 'EC', 'CL', 'EL', 'PPL', 'DED', 'FL1', 'CDR', 'PD', 'SA', 'FAC', 'PL', 'DFB', 'BL1'];
-var competitionsNames = ['World Cup', 'European Cup of Nations', 'Champions League', 'UEFA Cup', 'Primeira Liga', 'Eredivise', 'Ligue 1', 'Copa del Rey', 'Primera División (Liga BBVA)', 'Serie A', 'FA Cup', 'English Premiere League', 'DFB Pokal', 'Bundesliga 1'];
+var competitionsNames = ['World Cup', 'European Cup of Nations', 'Champions League', 'Europa League', 'UEFA Cup', 'Primeira Liga', 'Eredivise', 'Ligue 1', 'Copa del Rey', 'Primera División (Liga BBVA)', 'Serie A', 'FA Cup', 'English Premiere League', 'DFB Pokal', 'Bundesliga 1'];
 var getCompetitionName = function(id) {
   return competitionsNames[competitions.indexOf(id)];
 }

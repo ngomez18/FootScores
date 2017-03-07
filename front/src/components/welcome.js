@@ -31,7 +31,8 @@ class Welcome extends Component {
                       <li>Premiere League</li>
                       <li>Liga Santander</li>
                       <li>Bundesliga</li>
-                      <li>Serie A</li>     
+                      <li>Serie A</li>
+                      <li>.. y muchas más!</li>   
                     </ul>
                   </div>
                   <div className='col-md-3'></div>

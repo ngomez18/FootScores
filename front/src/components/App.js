@@ -6,8 +6,7 @@ import Login from './login';
 import Navegacion from './navbar';
 import '../style/App.css';
 
-// const URL="https://footscores.herokuapp.com";
-const URL="http://localhost:3000";
+const URL="https://footscores.herokuapp.com";
 
 const signupStyle={
   content : {

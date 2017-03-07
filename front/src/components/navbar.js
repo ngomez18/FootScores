@@ -20,10 +20,10 @@ class Navegacion extends Component {
                     <Navbar.Collapse>
                         <Nav>
                           <LinkContainer to="/home">
-                            <NavItem eventKey={1}>Home</NavItem>
+                            <NavItem eventKey={1}>Instrucciones</NavItem>
                           </LinkContainer>
                           <LinkContainer to="/leagues">
-                            <NavItem eventKey={2}>Leagues</NavItem>
+                            <NavItem eventKey={2}>Ligas</NavItem>
                           </LinkContainer>
                           <LinkContainer to="/leaderboard">
                             <NavItem eventKey={3} onClick={this.props.onClickLeaderboard}>Leaderboard</NavItem>
