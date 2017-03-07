@@ -84,7 +84,7 @@ module.exports.addGuess = function(username, guess, options, callback) {
     if(err) {
       throw err;
     }
-    if(result.isEmpty) {
+    if(!result || result.length<1) {
       return;
     }
     var guesses = result[0].guesses;
