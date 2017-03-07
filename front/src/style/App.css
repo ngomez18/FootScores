@@ -16,6 +16,14 @@
   cursor: pointer; cursor: hand;
   box-shadow: 0 1px 3px rgba(0,0,0,0.60);
 }
+.user-guess
+{
+  color: #fff;
+  background-color: #04BC00;
+  border: none;
+  margin-top: 0.1em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.30);
+}
 .img-league:hover
 {
   margin-bottom: 0em;

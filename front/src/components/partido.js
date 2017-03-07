@@ -10,7 +10,10 @@ class Partido extends Component {
         this.state = {
             homeGoals: '',
             awayGoals: '',
-            user: 'prueba'
+            user: 'prueba',
+            send: false,
+            homeGoalsSent: '',
+            awayGoalsSent: ''
         }
     }
     setHomeGoals(event) {
@@ -44,13 +47,21 @@ class Partido extends Component {
       var guessJSON = JSON.stringify(guess);
       axios.put(URL+ "/users/" + this.state.user + "/guess", guessJSON, config)
       .then(response => {
-        //this.fijarInput;  aqui algo para que no pueda volver a poner un valor
-        console.log(response);
+        this.setState({
+          homeGoals: '',
+          awayGoals: '',
+          user: 'prueba',
+          send: true,
+          homeGoalsSent: this.state.homeGoals,
+          awayGoalsSent: this.state.awayGoals
+        });
+        console.log(response.data);
       })
     }
   }
 
     render() {
+      const envio = this.state.send;
         return (
             <div className='row'>
                 <div className='col-md-12'>
@@ -62,7 +73,18 @@ class Partido extends Component {
                                     <td className='col-md-4 col-xs-6 matches'>
                                         <div className='row'>
                                             <span className='col-md-4 col-xs-0'></span>
-                                            <form>
+                                            {envio ? (
+                                              <div className='col-md-4'>
+                                                <div className='row'>
+                                                  <p>Buena Suerte!</p>
+                                                </div>
+                                                <div className='row'>
+                                                  <span className='col-md-12 user-guess'>{this.state.homeGoalsSent} - {this.state.awayGoalsSent}</span>
+                                                </div>
+                                              </div>
+
+                                            )
+                                          : (<form>
                                                 <div className='row'>
                                                     <input className='col-md-2 col-xs-6' type="number" name="homeGoals" onChange={this.setHomeGoals.bind(this)}></input>
                                                     <input className='col-md-2 col-xs-6' type="number" name="awayGoals" onChange={this.setAwayGoals.bind(this)}></input>
@@ -75,7 +97,7 @@ class Partido extends Component {
                                                     }}/> */}
                                                     <button type='button' className='guessButton' onClick={this.postGuess.bind(this)}>Enviar</button>
                                                 </div>
-                                            </form>
+                                            </form>)}
                                             <span className='col-md-4 col-xs-0'></span>
                                         </div>
                                     </td>
