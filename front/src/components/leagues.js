@@ -37,7 +37,6 @@ class Leagues extends Component {
     }
 
     render() {
-        var i = 0;
         const estaLleno = this.state.lleno;
         const cargo = this.state.cargando;
         return (
@@ -117,7 +116,6 @@ class Leagues extends Component {
                   )}</div>
                 <div className='row'>
                 {estaLleno ? (this.state.liga.map(partido =>{
-                  i++;
                   return <Partido key={partido.id} partido={partido} />
                 }) )
               : (<h3>No hay partidos disponibles para esta liga, selecciona otra!</h3>)}

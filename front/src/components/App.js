@@ -7,7 +7,6 @@ import Navegacion from './navbar';
 import '../style/App.css';
 
 const URL="https://footscores.herokuapp.com";
-
 const signupStyle={
   content : {
     top                   : '50%',
@@ -46,18 +45,13 @@ class App extends Component {
         usuarios: response.data
       });
     });
-    axios.get(URL+"/fixtures/PD").then(response => {
-      this.setState({
-        ligaBBVA: response.data
-      });
-    });
     super(props);
     this.state= {
       usuarios:[],
-      ligaBBVA:[],
       signupModalOpen: false,
       loginModelOpen: false,
-      token: ''
+      token: '',
+      thereIsToken: false
     };
     this.closeSignupModal = this.closeSignupModal.bind(this);
     this.openSignupModal = this.openSignupModal.bind(this);
@@ -115,7 +109,7 @@ class App extends Component {
           this.closeLoginModal();
           console.log('Token set to ' + response.data.token);
         }
-      }).catch(function (error) {
+      }.bind(this)).catch(function (error) {
         console.log(error);
       });
     }
@@ -131,7 +125,8 @@ class App extends Component {
 
   addTokenToState(token) {
     this.setState({
-      token: token
+      token: token,
+      thereIsToken: true
     });
   }
 
@@ -187,9 +182,26 @@ class App extends Component {
         <div className='row'>
           <div className='col-md-1'>
           </div>
-          <div className='col-md-9'>
-            {React.cloneElement(this.props.children, {...this.state})}
-          </div>
+          {this.state.thereIsToken ?
+            (
+              <div className='col-md-9'>
+                {React.cloneElement(this.props.children, {...this.state})}
+              </div>
+            ):(
+              <div className='col-md-9'>
+                <div className='row'>
+                  <div className='col-md-12'>
+                    <h1>Bienvenido a FootScores!</h1>
+                  </div>
+                </div>
+                <hr className="content-divider"></hr>
+                <div className='row'>
+                  <div className='col-md-12'>
+                    <h3>Regístrate o inicia sesión!</h3>
+                  </div>
+                </div>
+              </div>
+            )}
           <div className='col-md-1'></div>
         </div>
       </div>

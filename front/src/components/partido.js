@@ -6,7 +6,6 @@ import '../style/App.css';
 class Partido extends Component {
 
     constructor(props) {
-      console.log('entro');
         super(props);
         this.state = {
             homeGoals: '',
