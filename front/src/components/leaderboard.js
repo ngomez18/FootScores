@@ -4,7 +4,6 @@ import '../style/App.css';
 class Leaderboard extends Component {
 
     render() {
-      var i = 0;
         return (
           <div>
             <div className='row'>
@@ -24,14 +23,13 @@ class Leaderboard extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.props.usuarios.map(usuario =>
+                    {this.props.usuarios.map((usuario, index) =>
                       {
-                        i++;
                         return(
-                          <tr key={i}>
-                            <th scope="row" key={i+1}>{i}</th>
-                            <td key={i+2}>{usuario.name}</td>
-                            <td key={i+3}>{usuario.score}</td>
+                          <tr key={index}>
+                            <th scope="row" key={index+1}>{index}</th>
+                            <td key={index+2}>{usuario.name}</td>
+                            <td key={index+3}>{usuario.score}</td>
                           </tr>
                         );
                     })}
