@@ -23,6 +23,7 @@ const signupStyle={
 };
 
 const loginStyle={
+  // bien la organizacion del codigo asi
   content : {
     top                   : '50%',
     left                  : '50%',
@@ -105,6 +106,8 @@ class App extends Component {
         responseType: 'json',
       }).then(function (response) {
         if(response.data.success) {
+          // lo que les dije en la sustentacion, pueden guardar el token en localstorage asi
+          // localStorage.setItem('token', response.data.token);
           this.addTokenToState(response.data.token);
           this.closeLoginModal();
           console.log('Token set to ' + response.data.token);
@@ -144,6 +147,8 @@ class App extends Component {
         usuarios: response.data
       });
     });
+    
+    // podrian modelar la opcion donde hay un error en el request y se le muestra un mensaje al usuario, pero de resto, esta perfecto. 
   };
 
   render() {
